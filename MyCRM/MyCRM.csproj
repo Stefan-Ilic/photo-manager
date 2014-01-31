@@ -58,6 +58,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Uebungen\UEB3.cs" />
+    <Compile Include="Uebungen\UEB4.cs" />
+    <Compile Include="Uebungen\UEB5.cs" />
+    <Compile Include="Uebungen\UEB6.cs" />
+    <Compile Include="Uebungen\UEB2.cs" />
+    <Compile Include="Uebungen\UEB1.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
