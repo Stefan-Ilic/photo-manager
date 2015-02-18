@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows;
 using BIF.SWE2.Interfaces;
 
-namespace MyCRM
+namespace PicDB
 {
     /// <summary>
     /// Interaction logic for App.xaml

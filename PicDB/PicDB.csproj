@@ -8,8 +8,8 @@
     <ProjectGuid>{05F8743C-2D96-4708-B9CE-51155E907531}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyCRM</RootNamespace>
-    <AssemblyName>MyCRM</AssemblyName>
+    <RootNamespace>PicDB</RootNamespace>
+    <AssemblyName>PicDB</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
