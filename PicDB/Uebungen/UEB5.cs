@@ -12,5 +12,15 @@ namespace Uebungen
         public void HelloWorld()
         {
         }
+
+        public IBusinessLayer GetBusinessLayer()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TestSetup(string picturePath)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
