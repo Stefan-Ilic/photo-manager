@@ -93,7 +93,7 @@ namespace Uebungen
 
         public void TestSetup(string picturePath)
         {
-            throw new NotImplementedException();
+
         }
 
         public ICameraModel GetEmptyCameraModel()
