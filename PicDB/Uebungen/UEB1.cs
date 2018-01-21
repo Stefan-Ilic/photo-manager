@@ -6,6 +6,7 @@ using BIF.SWE2.Interfaces;
 using BIF.SWE2.Interfaces.Models;
 using BIF.SWE2.Interfaces.ViewModels;
 using PicDB;
+using PicDB.Models;
 
 namespace Uebungen
 {
@@ -33,7 +34,7 @@ namespace Uebungen
 
         public BIF.SWE2.Interfaces.Models.IEXIFModel GetEmptyEXIFModel()
         {
-            throw new NotImplementedException();
+            return new EXIFModel();
         }
 
         public BIF.SWE2.Interfaces.ViewModels.IEXIFViewModel GetEmptyEXIFViewModel()
@@ -43,7 +44,7 @@ namespace Uebungen
 
         public BIF.SWE2.Interfaces.Models.IIPTCModel GetEmptyIPTCModel()
         {
-            throw new NotImplementedException();
+            return new IPTCModel();
         }
 
         public BIF.SWE2.Interfaces.ViewModels.IIPTCViewModel GetEmptyIPTCViewModel()
@@ -63,7 +64,7 @@ namespace Uebungen
 
         public BIF.SWE2.Interfaces.Models.IPhotographerModel GetEmptyPhotographerModel()
         {
-            throw new NotImplementedException();
+            return new PhotographerModel();
         }
 
         public BIF.SWE2.Interfaces.ViewModels.IPhotographerViewModel GetEmptyPhotographerViewModel()
@@ -78,7 +79,7 @@ namespace Uebungen
 
         public BIF.SWE2.Interfaces.Models.IPictureModel GetEmptyPictureModel()
         {
-            throw new NotImplementedException();
+            return new PictureModel();
         }
 
         public BIF.SWE2.Interfaces.ViewModels.IPictureViewModel GetEmptyPictureViewModel()
@@ -98,7 +99,7 @@ namespace Uebungen
 
         public ICameraModel GetEmptyCameraModel()
         {
-            throw new NotImplementedException();
+            return new CameraModel();
         }
 
         public ICameraListViewModel GetEmptyCameraListViewModel()
