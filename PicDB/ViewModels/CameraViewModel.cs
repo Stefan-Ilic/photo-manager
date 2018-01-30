@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BIF.SWE2.Interfaces;
+using BIF.SWE2.Interfaces.Models;
 using BIF.SWE2.Interfaces.ViewModels;
 using Prism.Mvvm;
 
@@ -14,6 +15,29 @@ namespace PicDB.ViewModels
     /// </summary>
     public class CameraViewModel : BindableBase, ICameraViewModel
     {
+        /// <summary>
+        /// ctor with model
+        /// </summary>
+        /// <param name="mdl"></param>
+        public CameraViewModel(ICameraModel mdl)
+        {
+            ID = mdl.ID;
+            Producer = mdl.Producer;
+            Make = mdl.Make;
+            BoughtOn = mdl.BoughtOn;
+            Notes = mdl.Notes;
+            ISOLimitGood = mdl.ISOLimitGood;
+            ISOLimitAcceptable = mdl.ISOLimitAcceptable;
+        }
+
+        /// <summary>
+        /// Empty ctor
+        /// </summary>
+        public CameraViewModel()
+        {
+            
+        }
+
         /// <summary>
         /// Database primary key
         /// </summary>

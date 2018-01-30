@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BIF.SWE2.Interfaces.Models;
 using BIF.SWE2.Interfaces.ViewModels;
 using Prism.Mvvm;
 
@@ -13,6 +14,22 @@ namespace PicDB.ViewModels
     /// </summary>
     public class IPTCViewModel : BindableBase, IIPTCViewModel
     {
+        /// <summary>
+        /// ctor with model
+        /// </summary>
+        /// <param name="mdl"></param>
+        public IPTCViewModel(IIPTCModel mdl)
+        {
+        }
+
+        /// <summary>
+        /// Empty ctor
+        /// </summary>
+        public IPTCViewModel()
+        {
+            
+        }
+
         /// <summary>
         /// A list of keywords
         /// </summary>

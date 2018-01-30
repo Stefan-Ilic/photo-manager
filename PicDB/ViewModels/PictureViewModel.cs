@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BIF.SWE2.Interfaces.Models;
 using BIF.SWE2.Interfaces.ViewModels;
 using Prism.Mvvm;
 
@@ -13,6 +14,28 @@ namespace PicDB.ViewModels
     /// </summary>
     public class PictureViewModel : BindableBase, IPictureViewModel
     {
+        /// <summary>
+        /// ctor that accepts with model
+        /// </summary>
+        /// <param name="mdl"></param>
+        public PictureViewModel(IPictureModel mdl)
+        {
+            ID = mdl.ID;
+            FileName = mdl.FileName;
+            IPTC = new IPTCViewModel(mdl.IPTC);
+            EXIF = new EXIFViewModel(mdl.EXIF);
+            Camera = new CameraViewModel(mdl.Camera);
+            DisplayName = $"{IPTC.Headline}|{FileName} (by {Photographer}|{IPTC.ByLine})";
+        }
+
+        /// <summary>
+        /// Empty ctor
+        /// </summary>
+        public PictureViewModel()
+        {
+
+        }
+
         /// <summary>
         /// Database primary key
         /// </summary>

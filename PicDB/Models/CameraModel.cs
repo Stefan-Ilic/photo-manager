@@ -12,6 +12,25 @@ namespace PicDB.Models
     public class CameraModel : ICameraModel
     {
         /// <summary>
+        /// ctor that takes producer and make
+        /// </summary>
+        /// <param name="producer"></param>
+        /// <param name="make"></param>
+        public CameraModel(string producer, string make)
+        {
+            Producer = producer;
+            Make = make;
+        }
+
+        /// <summary>
+        /// Empty ctor
+        /// </summary>
+        public CameraModel()
+        {
+            
+        }
+
+        /// <summary>
         /// Database primary key
         /// </summary>
         public int ID { get; set; }

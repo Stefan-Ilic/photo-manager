@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BIF.SWE2.Interfaces;
+using BIF.SWE2.Interfaces.Models;
 using BIF.SWE2.Interfaces.ViewModels;
+using PicDB.Models;
 using Prism.Mvvm;
 
 namespace PicDB.ViewModels
@@ -14,6 +16,23 @@ namespace PicDB.ViewModels
     /// </summary>
     public class EXIFViewModel : BindableBase, IEXIFViewModel
     {
+        /// <summary>
+        /// ctor with model
+        /// </summary>
+        /// <param name="mdl"></param>
+        public EXIFViewModel(IEXIFModel mdl)
+        {
+            
+        }
+
+        /// <summary>
+        /// Empty ctor
+        /// </summary>
+        public EXIFViewModel()
+        {
+            
+        }
+
         /// <summary>
         /// Name of camera
         /// </summary>
