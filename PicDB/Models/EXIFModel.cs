@@ -7,6 +7,9 @@ using BIF.SWE2.Interfaces.Models;
 
 namespace PicDB.Models
 {
+    /// <summary>
+    /// Model class for EXIF information
+    /// </summary>
     public class EXIFModel : IEXIFModel
     {
         /// <summary>

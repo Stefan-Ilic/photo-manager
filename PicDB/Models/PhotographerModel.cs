@@ -6,6 +6,9 @@ using BIF.SWE2.Interfaces.Models;
 
 namespace PicDB.Models
 {
+    /// <summary>
+    /// Model class for a photographer
+    /// </summary>
     public class PhotographerModel : IPhotographerModel
     {
         /// <summary>

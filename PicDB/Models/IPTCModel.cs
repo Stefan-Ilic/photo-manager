@@ -6,6 +6,9 @@ using BIF.SWE2.Interfaces.Models;
 
 namespace PicDB.Models
 {
+    /// <summary>
+    /// Model class or IPTC information
+    /// </summary>
     public class IPTCModel : IIPTCModel
     {
         /// <summary>

@@ -19,6 +19,9 @@ namespace PicDB
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Default constructor for the main window codebehind
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
