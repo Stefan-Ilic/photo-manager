@@ -16,16 +16,16 @@ namespace PicDB.ViewModels
         /// <summary>
         /// The current picture ViewModel
         /// </summary>
-        public IPictureViewModel CurrentPicture { get; }
+        public IPictureViewModel CurrentPicture { get; } = new PictureViewModel();
 
         /// <summary>
         /// ViewModel with a list of all Pictures
         /// </summary>
-        public IPictureListViewModel List { get; }
+        public IPictureListViewModel List { get; } = new PictureListViewModel();
 
         /// <summary>
         /// Search ViewModel
         /// </summary>
-        public ISearchViewModel Search { get; }
+        public ISearchViewModel Search { get; } = new SearchViewModel();
     }
 }

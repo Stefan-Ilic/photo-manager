@@ -21,7 +21,7 @@ namespace PicDB.ViewModels
         /// <summary>
         /// True, if a search is active
         /// </summary>
-        public bool IsActive { get; }
+        public bool IsActive => !string.IsNullOrEmpty(SearchText);
 
         /// <summary>
         /// Number of photos found.

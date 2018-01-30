@@ -5,6 +5,7 @@ using System.Text;
 using BIF.SWE2.Interfaces;
 using BIF.SWE2.Interfaces.ViewModels;
 using PicDB;
+using PicDB.ViewModels;
 
 namespace Uebungen
 {
@@ -37,7 +38,7 @@ namespace Uebungen
         /// <returns></returns>
         public void TestSetup(string picturePath)
         {
-            throw new NotImplementedException();
+
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace Uebungen
         /// <returns></returns>
         public IDataAccessLayer GetDataAccessLayer()
         {
-            throw new NotImplementedException();
+            return new MockDal();
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace Uebungen
         /// <returns></returns>
         public ISearchViewModel GetSearchViewModel()
         {
-            throw new NotImplementedException();
+            return new SearchViewModel();
         }
     }
 }

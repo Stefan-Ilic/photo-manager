@@ -89,7 +89,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BusinessLayer.cs" />
-    <Compile Include="DataAccessLayer.cs" />
+    <Compile Include="MockDal.cs" />
     <Compile Include="Models\CameraModel.cs" />
     <Compile Include="Models\EXIFModel.cs" />
     <Compile Include="Models\IPTCModel.cs" />

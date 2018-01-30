@@ -14,6 +14,12 @@ namespace PicDB
     /// </summary>
     public class BusinessLayer : IBusinessLayer
     {
+        #region Ctor
+
+        
+
+        #endregion
+
         #region Pictures
 
         /// <summary>
@@ -164,6 +170,15 @@ namespace PicDB
         {
             return new CameraModel();
         }
+
+        #endregion
+
+        #region DAL
+
+        /// <summary>
+        /// The DataAccessLayer used
+        /// </summary>
+        public IDataAccessLayer Dal { get; set; }
 
         #endregion
     }

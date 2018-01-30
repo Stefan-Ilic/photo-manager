@@ -31,7 +31,7 @@ namespace Uebungen
         /// <returns></returns>
         public IBusinessLayer GetBusinessLayer()
         {
-            throw new NotImplementedException();
+            return new BusinessLayer();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Uebungen
         /// <returns></returns>
         public BIF.SWE2.Interfaces.ViewModels.IMainWindowViewModel GetMainWindowViewModel()
         {
-            throw new NotImplementedException();
+            return new MainWindowViewModel();
         }
 
         /// <summary>

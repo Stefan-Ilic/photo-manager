@@ -41,7 +41,7 @@ namespace Uebungen
         /// <returns></returns>
         public IDataAccessLayer GetAnyDataAccessLayer()
         {
-            return new DataAccessLayer();
+            return new MockDal();
         }
 
         /// <summary>

@@ -10,10 +10,70 @@ using PicDB.Models;
 namespace PicDB
 {
     /// <summary>
-    /// The DataAccessLayer
+    /// The MockDal
     /// </summary>
-    public class DataAccessLayer : IDataAccessLayer
+    public class MockDal : IDataAccessLayer
     {
+        /// <summary>
+        /// Mock of the Pictures table
+        /// </summary>
+        public static List<IPictureModel> Pictures = new List<IPictureModel>
+        {
+            new PictureModel()
+            {
+                ID = 5678,
+                FileName = "test5678.jpg"
+            },
+            new PictureModel()
+            {
+                ID = 1234,
+                FileName = "test1234.jpg"
+            }
+        };
+
+        /// <summary>
+        /// Mock of the Pictures table
+        /// </summary>
+        public static List<IPhotographerModel> Photographers = new List<IPhotographerModel>
+        {
+
+            new PhotographerModel()
+            {
+                ID = 5678,
+                FirstName = "Hans",
+                LastName = "Maulwurf",
+                BirthDay = new DateTime(2000, 1, 1)
+            },
+            new PhotographerModel()
+            {
+                ID = 1234,
+                FirstName = "Stefan",
+                LastName = "Ilic",
+                BirthDay = new DateTime(1997, 1, 10)
+            }
+        };
+
+        /// <summary>
+        /// Mock of the Pictures table
+        /// </summary>
+        public static List<ICameraModel> Cameras = new List<ICameraModel>
+        {
+            new CameraModel()
+            {
+                ID = 1234,
+                Producer = "Canon",
+                Make = "1DX",
+                BoughtOn = new DateTime(2017, 10, 1)
+            },
+            new CameraModel()
+            {
+                ID = 5678,
+                Producer = "Nikon",
+                Make = "D4",
+                BoughtOn = new DateTime(2017, 2, 7)
+            }
+        };
+
         /// <summary>
         /// Returns a filterd list of Pictures from the directory, based on a database query.
         /// </summary>
@@ -21,7 +81,7 @@ namespace PicDB
         public IEnumerable<IPictureModel> GetPictures(string namePart, IPhotographerModel photographerParts,
             IIPTCModel iptcParts, IEXIFModel exifParts)
         {
-            return new List<IPictureModel>();
+            return Pictures;
         }
 
         /// <summary>
@@ -31,7 +91,7 @@ namespace PicDB
         /// <returns></returns>
         public IPictureModel GetPicture(int ID)
         {
-            return new PictureModel();
+            return Pictures.Single(x => x.ID == ID);
         }
 
         /// <summary>
@@ -40,7 +100,7 @@ namespace PicDB
         /// <param name="picture"></param>
         public void Save(IPictureModel picture)
         {
-            
+
         }
 
         /// <summary>
@@ -49,7 +109,7 @@ namespace PicDB
         /// <param name="ID"></param>
         public void DeletePicture(int ID)
         {
-            
+            Pictures.RemoveAll(x => x.ID == ID);
         }
 
         /// <summary>
@@ -58,7 +118,7 @@ namespace PicDB
         /// <returns></returns>
         public IEnumerable<IPhotographerModel> GetPhotographers()
         {
-            return new List<IPhotographerModel>();
+            return Photographers;
         }
 
         /// <summary>
@@ -77,7 +137,7 @@ namespace PicDB
         /// <param name="photographer"></param>
         public void Save(IPhotographerModel photographer)
         {
-            
+
         }
 
         /// <summary>
@@ -86,7 +146,7 @@ namespace PicDB
         /// <param name="ID"></param>
         public void DeletePhotographer(int ID)
         {
-            
+            Photographers.RemoveAll(x => x.ID == ID);
         }
 
         /// <summary>
@@ -95,7 +155,7 @@ namespace PicDB
         /// <returns></returns>
         public IEnumerable<ICameraModel> GetCameras()
         {
-            return new List<ICameraModel>();
+            return Cameras;
         }
 
         /// <summary>
