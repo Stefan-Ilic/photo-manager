@@ -88,6 +88,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BusinessLayer.cs" />
+    <Compile Include="DataAccessLayer.cs" />
     <Compile Include="Models\CameraModel.cs" />
     <Compile Include="Models\EXIFModel.cs" />
     <Compile Include="Models\IPTCModel.cs" />
@@ -100,6 +102,15 @@
     <Compile Include="Uebungen\UEB2.cs" />
     <Compile Include="Uebungen\UEB1.cs" />
     <Compile Include="ViewModels\CameraListViewModel.cs" />
+    <Compile Include="ViewModels\CameraViewModel.cs" />
+    <Compile Include="ViewModels\EXIFViewModel.cs" />
+    <Compile Include="ViewModels\IPTCViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\PhotographerListViewModel.cs" />
+    <Compile Include="ViewModels\PhotographerViewModel.cs" />
+    <Compile Include="ViewModels\PictureListViewModel.cs" />
+    <Compile Include="ViewModels\PictureViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

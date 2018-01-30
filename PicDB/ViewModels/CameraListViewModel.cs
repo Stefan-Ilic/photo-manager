@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BIF.SWE2.Interfaces.ViewModels;
+using Prism.Mvvm;
 
 namespace PicDB.ViewModels
 {
-    class CameraListViewModel : ICameraListViewModel
+    /// <summary>
+    /// A viewmodel for cameralist
+    /// </summary>
+    public class CameraListViewModel : BindableBase, ICameraListViewModel
     {
         /// <summary>
         /// List of all CameraListViewModel

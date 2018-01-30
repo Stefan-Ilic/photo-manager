@@ -7,6 +7,7 @@ using BIF.SWE2.Interfaces.Models;
 using BIF.SWE2.Interfaces.ViewModels;
 using PicDB;
 using PicDB.Models;
+using PicDB.ViewModels;
 
 namespace Uebungen
 {
@@ -40,7 +41,7 @@ namespace Uebungen
         /// <returns></returns>
         public IDataAccessLayer GetAnyDataAccessLayer()
         {
-            throw new NotImplementedException();
+            return new DataAccessLayer();
         }
 
         /// <summary>
@@ -49,7 +50,7 @@ namespace Uebungen
         /// <returns></returns>
         public IBusinessLayer GetBusinessLayer()
         {
-            throw new NotImplementedException();
+            return new BusinessLayer();
         }
 
         /// <summary>
@@ -67,7 +68,7 @@ namespace Uebungen
         /// <returns></returns>
         public BIF.SWE2.Interfaces.ViewModels.IEXIFViewModel GetEmptyEXIFViewModel()
         {
-            throw new NotImplementedException();
+            return new EXIFViewModel();
         }
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace Uebungen
         /// <returns></returns>
         public BIF.SWE2.Interfaces.ViewModels.IIPTCViewModel GetEmptyIPTCViewModel()
         {
-            throw new NotImplementedException();
+            return new IPTCViewModel();
         }
 
         /// <summary>
@@ -94,7 +95,7 @@ namespace Uebungen
         /// <returns></returns>
         public BIF.SWE2.Interfaces.ViewModels.IMainWindowViewModel GetEmptyMainWindowViewModel()
         {
-            throw new NotImplementedException();
+            return new MainWindowViewModel();
         }
 
         /// <summary>
@@ -103,7 +104,7 @@ namespace Uebungen
         /// <returns></returns>
         public BIF.SWE2.Interfaces.ViewModels.IPhotographerListViewModel GetEmptyPhotographerListViewModel()
         {
-            throw new NotImplementedException();
+            return new PhotographerListViewModel();
         }
 
         /// <summary>
@@ -121,7 +122,7 @@ namespace Uebungen
         /// <returns></returns>
         public BIF.SWE2.Interfaces.ViewModels.IPhotographerViewModel GetEmptyPhotographerViewModel()
         {
-            throw new NotImplementedException();
+            return new PhotographerViewModel();
         }
 
         /// <summary>
@@ -130,7 +131,7 @@ namespace Uebungen
         /// <returns></returns>
         public BIF.SWE2.Interfaces.ViewModels.IPictureListViewModel GetEmptyPictureListViewModel()
         {
-            throw new NotImplementedException();
+            return new PictureListViewModel();
         }
 
         /// <summary>
@@ -148,7 +149,7 @@ namespace Uebungen
         /// <returns></returns>
         public BIF.SWE2.Interfaces.ViewModels.IPictureViewModel GetEmptyPictureViewModel()
         {
-            throw new NotImplementedException();
+            return new PictureViewModel();
         }
 
         /// <summary>
@@ -157,7 +158,7 @@ namespace Uebungen
         /// <returns></returns>
         public BIF.SWE2.Interfaces.ViewModels.ISearchViewModel GetEmptySearchViewModel()
         {
-            throw new NotImplementedException();
+            return new SearchViewModel();
         }
 
         /// <summary>
@@ -184,7 +185,7 @@ namespace Uebungen
         /// <returns></returns>
         public ICameraListViewModel GetEmptyCameraListViewModel()
         {
-            throw new NotImplementedException();
+            return new CameraListViewModel();
         }
 
         /// <summary>
@@ -193,7 +194,7 @@ namespace Uebungen
         /// <returns></returns>
         public ICameraViewModel GetEmptyCameraViewModel()
         {
-            throw new NotImplementedException();
+            return new CameraViewModel();
         }
     }
 }
