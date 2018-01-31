@@ -31,7 +31,7 @@ namespace Uebungen
         /// <returns></returns>
         public IBusinessLayer GetBusinessLayer()
         {
-            return new BusinessLayer();
+            return new BusinessLayer("mock");
         }
 
         /// <summary>

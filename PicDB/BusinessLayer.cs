@@ -16,7 +16,14 @@ namespace PicDB
     {
         #region Ctor
 
-        
+        /// <summary>
+        /// ctor for mock dal
+        /// </summary>
+        /// <param name="type"></param>
+        public BusinessLayer(string type = "real")
+        {
+            Dal = DalFactory.Create(type);
+        }
 
         #endregion
 
@@ -28,7 +35,7 @@ namespace PicDB
         /// <returns></returns>
         public IEnumerable<IPictureModel> GetPictures()
         {
-            return new List<IPictureModel>();
+            return Dal.GetPictures(null, null, null, null);
         }
 
         /// <summary>
@@ -38,7 +45,7 @@ namespace PicDB
         public IEnumerable<IPictureModel> GetPictures(string namePart, IPhotographerModel photographerParts,
             IIPTCModel iptcParts, IEXIFModel exifParts)
         {
-            return new List<IPictureModel>();
+            return Dal.GetPictures(namePart, photographerParts, iptcParts, exifParts);
         }
 
         /// <summary>
@@ -48,7 +55,7 @@ namespace PicDB
         /// <returns></returns>
         public IPictureModel GetPicture(int ID)
         {
-            return new PictureModel();
+            return Dal.GetPicture(ID);
         }
 
         /// <summary>
@@ -57,7 +64,7 @@ namespace PicDB
         /// <param name="picture"></param>
         public void Save(IPictureModel picture)
         {
-            
+
         }
 
         /// <summary>
@@ -66,7 +73,7 @@ namespace PicDB
         /// <param name="ID"></param>
         public void DeletePicture(int ID)
         {
-            
+
         }
 
         /// <summary>
@@ -74,7 +81,7 @@ namespace PicDB
         /// </summary>
         public void Sync()
         {
-            
+
         }
 
         #endregion
@@ -87,7 +94,7 @@ namespace PicDB
         /// <returns></returns>
         public IEnumerable<IPhotographerModel> GetPhotographers()
         {
-            return new List<IPhotographerModel>();
+            return Dal.GetPhotographers();
         }
 
         /// <summary>
@@ -97,7 +104,7 @@ namespace PicDB
         /// <returns></returns>
         public IPhotographerModel GetPhotographer(int ID)
         {
-            return new PhotographerModel();
+            return Dal.GetPhotographer(ID);
         }
 
         /// <summary>
@@ -106,7 +113,7 @@ namespace PicDB
         /// <param name="photographer"></param>
         public void Save(IPhotographerModel photographer)
         {
-            
+
         }
 
         /// <summary>
@@ -115,7 +122,7 @@ namespace PicDB
         /// <param name="ID"></param>
         public void DeletePhotographer(int ID)
         {
-            
+
         }
 
         #endregion
@@ -139,7 +146,13 @@ namespace PicDB
         /// <returns></returns>
         public IEXIFModel ExtractEXIF(string filename)
         {
-            return new EXIFModel();
+            return new EXIFModel()
+            {
+                ExposureTime = 1,
+                FNumber = 1,
+                ISOValue = 1,
+                Make = "Nikon I guess"
+            };
         }
 
         /// <summary>
@@ -149,7 +162,7 @@ namespace PicDB
         /// <param name="iptc"></param>
         public void WriteIPTC(string filename, IIPTCModel iptc)
         {
-            
+
         }
 
         /// <summary>
@@ -158,7 +171,7 @@ namespace PicDB
         /// <returns></returns>
         public IEnumerable<ICameraModel> GetCameras()
         {
-            return new List<ICameraModel>();
+            return Dal.GetCameras();
         }
 
         /// <summary>
@@ -168,7 +181,7 @@ namespace PicDB
         /// <returns></returns>
         public ICameraModel GetCamera(int ID)
         {
-            return new CameraModel();
+            return Dal.GetCamera(ID);
         }
 
         #endregion

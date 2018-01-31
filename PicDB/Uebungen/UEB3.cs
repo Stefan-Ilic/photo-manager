@@ -29,7 +29,7 @@ namespace Uebungen
         /// <returns></returns>
         public IBusinessLayer GetBusinessLayer()
         {
-            throw new NotImplementedException();
+            return new BusinessLayer("mock");
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Uebungen
         /// <returns></returns>
         public IDataAccessLayer GetDataAccessLayer()
         {
-            return new MockDal();
+            return DalFactory.Create("mock");
         }
 
         /// <summary>
