@@ -47,11 +47,11 @@ namespace PicDB.Models
         /// <summary>
         /// EXIF information
         /// </summary>
-        public IEXIFModel EXIF { get; set; }
+        public IEXIFModel EXIF { get; set; } = new EXIFModel();
 
         /// <summary>
         /// The camera (optional)
         /// </summary>
-        public ICameraModel Camera { get; set; }
+        public ICameraModel Camera { get; set; } = new CameraModel();
     }
 }
