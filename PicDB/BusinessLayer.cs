@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -136,7 +137,18 @@ namespace PicDB
         /// <returns></returns>
         public IIPTCModel ExtractIPTC(string filename)
         {
-            return new IPTCModel();
+            if (!PictureExists(filename))
+            {
+                throw new MissingPictureException();
+            }
+            return new IPTCModel()
+            {
+                ByLine = "But",
+                Caption = "Can",
+                CopyrightNotice = "You",
+                Headline = "Do",
+                Keywords = "This"
+            };
         }
 
         /// <summary>
@@ -146,6 +158,10 @@ namespace PicDB
         /// <returns></returns>
         public IEXIFModel ExtractEXIF(string filename)
         {
+            if (!PictureExists(filename))
+            {
+                throw new MissingPictureException();
+            }
             return new EXIFModel()
             {
                 ExposureTime = 1,
@@ -192,6 +208,16 @@ namespace PicDB
         /// The DataAccessLayer used
         /// </summary>
         public IDataAccessLayer Dal { get; set; }
+
+        #endregion
+
+        #region Helper
+
+        private bool PictureExists(string filename)
+        {
+            const string picturePath = @"C:\projects\SWE2\SWE2-CS\deploy\Pictures\";
+            return File.Exists(Path.Combine(picturePath, filename));
+        }
 
         #endregion
     }

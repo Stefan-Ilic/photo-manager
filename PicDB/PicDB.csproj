@@ -91,6 +91,7 @@
     <Compile Include="BusinessLayer.cs" />
     <Compile Include="DAL.cs" />
     <Compile Include="DalFactory.cs" />
+    <Compile Include="Exceptions.cs" />
     <Compile Include="MockDal.cs" />
     <Compile Include="Models\CameraModel.cs" />
     <Compile Include="Models\EXIFModel.cs" />

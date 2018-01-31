@@ -8,7 +8,7 @@ using BIF.SWE2.Interfaces;
 namespace PicDB
 {
     /// <summary>
-    /// Factory for DaraAccessLayer
+    /// Factory for DataAccessLayer
     /// </summary>
     public static class DalFactory
     {
