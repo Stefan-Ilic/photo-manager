@@ -20,6 +20,11 @@ namespace PicDB.ViewModels
         /// <param name="mdl"></param>
         public IPTCViewModel(IIPTCModel mdl)
         {
+            ByLine = mdl.ByLine;
+            Caption = mdl.Caption;
+            CopyrightNotice = mdl.CopyrightNotice;
+            Headline = mdl.Headline;
+            Keywords = mdl.Keywords;
         }
 
         /// <summary>
@@ -48,7 +53,7 @@ namespace PicDB.ViewModels
         /// <summary>
         /// A list of common copyright noties. e.g. All rights reserved, CC-BY, CC-BY-SA, CC-BY-ND, CC-BY-NC, CC-BY-NC-SA, CC-BY-NC-ND
         /// </summary>
-        public IEnumerable<string> CopyrightNotices { get; }
+        public IEnumerable<string> CopyrightNotices { get; } = new List<string>(){ "All rights reserved", "CC-BY", "CC-BY-SA", "CC-BY-ND", "CC-BY-NC", "CC-BY-NC-SA", "CC-BY-NC-ND" };
 
         /// <summary>
         /// Summary/Headline of the picture
