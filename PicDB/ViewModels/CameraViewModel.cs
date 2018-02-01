@@ -35,7 +35,7 @@ namespace PicDB.ViewModels
         /// </summary>
         public CameraViewModel()
         {
-            
+
         }
 
         /// <summary>
@@ -71,27 +71,37 @@ namespace PicDB.ViewModels
         /// <summary>
         /// Returns true, if the model is valid
         /// </summary>
-        public bool IsValid { get; }
+        public bool IsValid => IsValidProducer && IsValidMake && IsValidBoughtOn;
 
         /// <summary>
         /// Returns a summary of validation errors
         /// </summary>
-        public string ValidationSummary { get; }
+        public string ValidationSummary
+        {
+            get
+            {
+                if (IsValid) return "";
+                var producer = IsValidProducer ? "" : "Producer";
+                var make = IsValidMake ? "" : "Make";
+                var boughtOn = IsValidBoughtOn ? "" : "BoughtOn";
+                return $"The following validations failed: {producer} {make} {boughtOn}";
+            }
+        }
 
         /// <summary>
         /// returns true if the producer name is valid
         /// </summary>
-        public bool IsValidProducer { get; }
+        public bool IsValidProducer => !string.IsNullOrEmpty(Producer);
 
         /// <summary>
         /// returns true if the make is valid
         /// </summary>
-        public bool IsValidMake { get; }
+        public bool IsValidMake => !string.IsNullOrEmpty(Make);
 
         /// <summary>
         /// returns true if the "bought on" date is valid
         /// </summary>
-        public bool IsValidBoughtOn { get; }
+        public bool IsValidBoughtOn => BoughtOn < DateTime.Today || BoughtOn == null;
 
         /// <summary>
         /// Max ISO Value for good results. 0 means "not defined"
