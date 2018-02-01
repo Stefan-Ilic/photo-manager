@@ -58,7 +58,7 @@ namespace Uebungen
         /// <returns></returns>
         public IPhotographerViewModel GetPhotographerViewModel(IPhotographerModel mdl)
         {
-            return new PhotographerViewModel();
+            return new PhotographerViewModel(mdl);
         }
 
         /// <summary>
