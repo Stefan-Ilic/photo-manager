@@ -230,7 +230,7 @@ namespace PicDB
 
         private bool PictureExists(string filename)
         {
-            return File.Exists(Path.Combine(PicturePath.ToString(), filename));
+            return File.Exists(Path.Combine(PicturePath, filename));
         }
 
         private enum DataObject
