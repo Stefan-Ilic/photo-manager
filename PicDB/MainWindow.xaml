@@ -2,7 +2,39 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
+    <DockPanel>
+        <!-- Toolbar -->
+        <ToolBar DockPanel.Dock="Top" ToolBarTray.IsLocked="True">
+            <Button>File</Button>
+            <Button>Edit</Button>
+            <Button>Options</Button>
+            <Button>Help</Button>
+        </ToolBar>
+
+        <!--Searchbar-->
+        <DockPanel DockPanel.Dock="Top">
+            <TextBox DockPanel.Dock="Left" Text="Search"></TextBox>
+            <Button DockPanel.Dock="Right">Search</Button>
+        </DockPanel>
+
+        <!--Picture Area-->
+        <Viewbox DockPanel.Dock="Left" Stretch="Uniform">
+            <Image Source="C:\projects\SWE2\SWE2-CS\deploy\Pictures\Img4.jpg"/>
+        </Viewbox>
+
+        <!--Control Area-->
+        <Viewbox DockPanel.Dock="Right" Stretch="Uniform">
+            <Button Content="Test" />
+        </Viewbox>
+
+        <!--Thumbnails-->
+        <ListView DockPanel.Dock="Bottom" Name="Thumbnails" ItemsSource="{Binding Images}">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="4"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
         
-    </Grid>
+    </DockPanel>
 </Window>
