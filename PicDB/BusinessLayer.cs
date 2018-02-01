@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -65,7 +66,8 @@ namespace PicDB
         /// <param name="picture"></param>
         public void Save(IPictureModel picture)
         {
-
+            picture.ID = GenerateId(DataObject.Picture);
+            Dal.Save(picture);
         }
 
         /// <summary>
@@ -82,7 +84,14 @@ namespace PicDB
         /// </summary>
         public void Sync()
         {
-
+            var difference = Directory.EnumerateFiles(PicturePath).Count() - GetPictures().Count();
+            if (difference > 0)
+            {
+                for (int i = 0; i < difference; i++)
+                {
+                    Save(new PictureModel());
+                }
+            }
         }
 
         #endregion
@@ -114,7 +123,8 @@ namespace PicDB
         /// <param name="photographer"></param>
         public void Save(IPhotographerModel photographer)
         {
-
+            photographer.ID = GenerateId(DataObject.Photographer);
+            Dal.Save(photographer);
         }
 
         /// <summary>
@@ -213,10 +223,32 @@ namespace PicDB
 
         #region Helper
 
+        /// <summary>
+        /// Path where the pictures are located
+        /// </summary>
+        public string PicturePath { get; set; } = @"C:\projects\SWE2\SWE2-CS\deploy\Pictures\";
+
         private bool PictureExists(string filename)
         {
-            const string picturePath = @"C:\projects\SWE2\SWE2-CS\deploy\Pictures\";
-            return File.Exists(Path.Combine(picturePath, filename));
+            return File.Exists(Path.Combine(PicturePath.ToString(), filename));
+        }
+
+        private enum DataObject
+        {
+            Photographer,
+            Picture
+        }
+        private int GenerateId(DataObject obj)
+        {
+            switch (obj)
+            {
+                case DataObject.Photographer:
+                    return GetPhotographers().Max(x => x.ID) + 1;
+                case DataObject.Picture:
+                    return GetPictures().Max(x => x.ID) + 1;
+                default:
+                    throw new InvalidEnumArgumentException();
+            }
         }
 
         #endregion

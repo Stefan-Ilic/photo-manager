@@ -5,6 +5,7 @@ using System.Text;
 using BIF.SWE2.Interfaces;
 using BIF.SWE2.Interfaces.Models;
 using PicDB;
+using PicDB.Models;
 
 namespace Uebungen
 {
@@ -28,7 +29,7 @@ namespace Uebungen
         /// <returns></returns>
         public IBusinessLayer GetBusinessLayer()
         {
-            throw new NotImplementedException();
+            return new BusinessLayer("mock");
         }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace Uebungen
         /// <returns></returns>
         public void TestSetup(string picturePath)
         {
-            throw new NotImplementedException();
+            
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace Uebungen
         /// <returns></returns>
         public IPictureModel GetEmptyPictureModel()
         {
-            throw new NotImplementedException();
+            return new PictureModel();
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace Uebungen
         /// <returns></returns>
         public IPhotographerModel GetEmptyPhotographerModel()
         {
-            throw new NotImplementedException();
+            return new PhotographerModel();
         }
     }
 }

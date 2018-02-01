@@ -27,12 +27,12 @@ namespace PicDB
             new PictureModel()
             {
                 ID = 1234,
-                FileName = "test1234.jpg"
+                FileName = "blume"
             }
         };
 
         /// <summary>
-        /// Mock of the Pictures table
+        /// Mock of the Photographers table
         /// </summary>
         public static List<IPhotographerModel> Photographers = new List<IPhotographerModel>
         {
@@ -54,7 +54,7 @@ namespace PicDB
         };
 
         /// <summary>
-        /// Mock of the Pictures table
+        /// Mock of the Cameras table
         /// </summary>
         public static List<ICameraModel> Cameras = new List<ICameraModel>
         {
@@ -81,7 +81,11 @@ namespace PicDB
         public IEnumerable<IPictureModel> GetPictures(string namePart, IPhotographerModel photographerParts,
             IIPTCModel iptcParts, IEXIFModel exifParts)
         {
-            return Pictures;
+            if (namePart == null && photographerParts == null && iptcParts == null && exifParts == null)
+            {
+                return Pictures;
+            }
+            return Pictures.Where(x => x.FileName == namePart);
         }
 
         /// <summary>
@@ -100,7 +104,7 @@ namespace PicDB
         /// <param name="picture"></param>
         public void Save(IPictureModel picture)
         {
-
+            Pictures.Add(picture);
         }
 
         /// <summary>
@@ -137,7 +141,7 @@ namespace PicDB
         /// <param name="photographer"></param>
         public void Save(IPhotographerModel photographer)
         {
-
+            Photographers.Add(photographer);
         }
 
         /// <summary>

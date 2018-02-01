@@ -20,6 +20,11 @@ namespace PicDB.ViewModels
         /// <param name="mdl"></param>
         public IPTCViewModel(IIPTCModel mdl)
         {
+            if (mdl == null)
+            {
+                return;
+            }
+
             ByLine = mdl.ByLine;
             Caption = mdl.Caption;
             CopyrightNotice = mdl.CopyrightNotice;

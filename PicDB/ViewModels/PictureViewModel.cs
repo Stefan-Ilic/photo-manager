@@ -59,21 +59,21 @@ namespace PicDB.ViewModels
         /// <summary>
         /// The IPTC ViewModel
         /// </summary>
-        public IIPTCViewModel IPTC { get; }
+        public IIPTCViewModel IPTC { get; } = new IPTCViewModel();
 
         /// <summary>
         /// The EXIF ViewModel
         /// </summary>
-        public IEXIFViewModel EXIF { get; }
+        public IEXIFViewModel EXIF { get; } = new EXIFViewModel();
 
         /// <summary>
         /// The Photographer ViewModel
         /// </summary>
-        public IPhotographerViewModel Photographer { get; }
+        public IPhotographerViewModel Photographer { get; } = new PhotographerViewModel();
 
         /// <summary>
         /// The Camera ViewModel
         /// </summary>
-        public ICameraViewModel Camera { get; }
+        public ICameraViewModel Camera { get; } = new CameraViewModel();
     }
 }
