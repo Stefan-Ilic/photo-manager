@@ -49,7 +49,7 @@ namespace Uebungen
         /// <returns></returns>
         public BIF.SWE2.Interfaces.Models.IPictureModel GetPictureModel(string filename)
         {
-            return new PictureModel(filename);
+            return new PictureModel(filename, true);
         }
 
         /// <summary>

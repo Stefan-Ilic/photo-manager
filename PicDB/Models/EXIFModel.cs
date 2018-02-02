@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using BIF.SWE2.Interfaces;
 using BIF.SWE2.Interfaces.Models;
+using PicDB.Helper;
 
 namespace PicDB.Models
 {
@@ -12,6 +13,28 @@ namespace PicDB.Models
     /// </summary>
     public class EXIFModel : IEXIFModel
     {
+        /// <summary>
+        /// Empty ctor
+        /// </summary>
+        public EXIFModel()
+        {
+            
+        }
+
+        /// <summary>
+        /// Takes filename and calls MetaDataExtractor
+        /// </summary>
+        /// <param name="fileName"></param>
+        public EXIFModel(string fileName)
+        {
+            var extractor = new MetaDataExtractor<EXIFModel>(fileName);
+            Make = extractor.Make;
+            FNumber = extractor.FNumber;
+            ExposureTime = extractor.ExposureTime;
+            ISOValue = extractor.ISOValue;
+            Flash = extractor.Flash;
+        }
+
         /// <summary>
         /// Name of camera
         /// </summary>

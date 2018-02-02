@@ -17,6 +17,7 @@ namespace PicDB.ViewModels
         /// ViewModel of the current picture
         /// </summary>
         public IPictureViewModel CurrentPicture { get; }
+
         /// <summary>
         /// List of all PictureViewModels
         /// </summary>

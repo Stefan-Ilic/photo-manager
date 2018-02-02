@@ -11,14 +11,18 @@ namespace PicDB.Models
     /// </summary>
     public class PictureModel : IPictureModel
     {
-        /// <summary>
-        /// ctor
-        /// </summary>
-        /// <param name="filename"></param>
-        public PictureModel(string filename)
+       /// <summary>
+       /// Ctor
+       /// </summary>
+       /// <param name="filename"></param>
+       /// <param name="mock"></param>
+        public PictureModel(string filename, bool mock = false)
         {
             FileName = filename;
             Camera = new CameraModel();
+            if (mock) return;
+            EXIF = new EXIFModel(filename);
+            IPTC = new IPTCModel(filename);
         }
 
         /// <summary>
