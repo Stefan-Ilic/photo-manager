@@ -21,6 +21,12 @@ namespace PicDB.Data_Access_Layer
         public IEnumerable<IPictureModel> GetPictures(string namePart, IPhotographerModel photographerParts,
             IIPTCModel iptcParts, IEXIFModel exifParts)
         {
+            Connect();
+
+
+
+            Disconnect();
+
             return new List<IPictureModel>();
         }
 
