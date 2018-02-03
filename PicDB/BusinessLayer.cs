@@ -212,7 +212,7 @@ namespace PicDB
 
         #endregion
 
-        #region DAL
+        #region Dal
 
         /// <summary>
         /// The DataAccessLayer used

@@ -95,11 +95,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BusinessLayer.cs" />
-    <Compile Include="DAL.cs" />
-    <Compile Include="DalFactory.cs" />
+    <Compile Include="Data Access Layer\Dal.cs" />
+    <Compile Include="Data Access Layer\DalFactory.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Helper\MetaDataExtractor.cs" />
-    <Compile Include="MockDal.cs" />
+    <Compile Include="Data Access Layer\MockDal.cs" />
     <Compile Include="Models\CameraModel.cs" />
     <Compile Include="Models\EXIFModel.cs" />
     <Compile Include="Models\IPTCModel.cs" />
@@ -160,7 +160,9 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Data Access Layer\Setup.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
