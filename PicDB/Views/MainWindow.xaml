@@ -1,6 +1,8 @@
-﻿<Window x:Class="PicDB.MainWindow"
+﻿<Window x:Class="PicDB.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
         Title="MainWindow" Height="350" Width="525">
     <DockPanel>
         <!-- Toolbar -->
