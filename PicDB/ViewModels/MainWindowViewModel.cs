@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,6 +27,10 @@ namespace PicDB.ViewModels
         public MainWindowViewModel()
         {
             CurrentPicture = List.List.First();
+            //cool
+            //ExifList = CurrentPicture.EXIF.GetType().GetProperties().Select(x => x.Name).ToList();
+            //CurrentExifProperty = ExifList.First();
+
             CurrentExifProperty = "Make";
             DisplayExifProperty = CurrentPicture.EXIF.Make;
 
@@ -66,7 +71,7 @@ namespace PicDB.ViewModels
         /// List of things showing in EXIF combobox
         /// </summary>
         public List<string> ExifList { get; } = new List<string>() { "Make", "FNumber", "Exposure Time", "ISO Value", "Flash", "Exposure Program" };
-
+        //public IEnumerable ExifList { get; }
 
         private string _currentExifProperty = "Make";
         /// <summary>
@@ -79,6 +84,8 @@ namespace PicDB.ViewModels
             {
                 SetProperty(ref _currentExifProperty, value);
                 SetExifProperty();
+                //DisplayExifProperty = CurrentPicture.EXIF.GetType().GetProperty(CurrentExifProperty)
+                //    .GetValue(CurrentPicture.EXIF, null).ToString();
             }
         }
 

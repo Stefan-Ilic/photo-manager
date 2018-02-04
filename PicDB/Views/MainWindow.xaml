@@ -5,6 +5,10 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="MainWindow" Height="500" Width="700" MinHeight="500">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="B2V" />
+    </Window.Resources>
+
     <DockPanel LastChildFill="False">
 
         <!-- Toolbar -->
@@ -52,10 +56,17 @@
         </Viewbox>
 
         <!--Control Area-->
-            <StackPanel DockPanel.Dock="Right">
+        <StackPanel DockPanel.Dock="Left">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton IsChecked="True" Name="ExifRadio" Style="{StaticResource {x:Type ToggleButton}}" MinWidth="100">EXIF</RadioButton>
+                <RadioButton Name="IptcRadio" Style="{StaticResource {x:Type ToggleButton}}" MinWidth="100">IPTC</RadioButton>
+            </StackPanel>
+
+            <StackPanel Visibility="{Binding IsChecked, ElementName=ExifRadio, Converter={StaticResource B2V}}">
                 <ComboBox ItemsSource="{Binding ExifList}" SelectedItem="{Binding CurrentExifProperty}"></ComboBox>
                 <TextBox Text="{Binding DisplayExifProperty}"></TextBox>
             </StackPanel>
+        </StackPanel>
 
     </DockPanel>
 </Window>
