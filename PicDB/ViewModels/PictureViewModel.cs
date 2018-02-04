@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,7 +50,7 @@ namespace PicDB.ViewModels
         /// <summary>
         /// Full file path, used to load the image
         /// </summary>
-        public string FilePath { get; }
+        public string FilePath => Path.Combine(@"C:\projects\SWE2\SWE2-CS\deploy\Pictures\", FileName);
 
         /// <summary>
         /// The line below the Picture. Format: {IPTC.Headline|FileName} (by {Photographer|IPTC.ByLine}).

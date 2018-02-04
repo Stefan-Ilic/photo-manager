@@ -1,6 +1,7 @@
 ﻿<Window x:Class="PicDB.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="MainWindow" Height="350" Width="525">
@@ -21,21 +22,35 @@
 
         <!--Picture Area-->
         <Viewbox DockPanel.Dock="Left" Stretch="Uniform">
-            <Image Source="C:\projects\SWE2\SWE2-CS\deploy\Pictures\Img4.jpg"/>
+            <Image Source="{Binding CurrentPicture.FilePath}"/>
         </Viewbox>
 
         <!--Control Area-->
         <Viewbox DockPanel.Dock="Right" Stretch="Uniform">
-            <Button Content="Test" />
+            <!--<Button Content="Test" />-->
         </Viewbox>
 
         <!--Thumbnails-->
-        <ListView DockPanel.Dock="Bottom" Name="Thumbnails" ItemsSource="{Binding Images}">
+        <ListView x:Name="ListView" DockPanel.Dock="Bottom" ItemsSource="{Binding Path=List.List}" ScrollViewer.CanContentScroll="False">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectPictureCommand}"
+                                           CommandParameter="{Binding ElementName=ListView, Path=SelectedItems}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid Columns="4"/>
+                    <StackPanel Orientation="Horizontal"></StackPanel>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical" >
+                        <Image Height="100" Source="{Binding FilePath}" />
+                        <TextBlock Text="{Binding FileName}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         
     </DockPanel>

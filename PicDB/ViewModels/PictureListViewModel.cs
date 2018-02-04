@@ -21,7 +21,7 @@ namespace PicDB.ViewModels
         /// <summary>
         /// List of all PictureViewModels
         /// </summary>
-        public IEnumerable<IPictureViewModel> List { get; }
+        public IEnumerable<IPictureViewModel> List { get; set; }
 
         /// <summary>
         /// All prev. pictures to the current selected picture.
