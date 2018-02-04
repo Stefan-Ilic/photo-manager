@@ -4,8 +4,9 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="MainWindow" Height="350" Width="525">
-    <DockPanel>
+        Title="MainWindow" Height="500" Width="700" MinHeight="500">
+    <DockPanel LastChildFill="False">
+
         <!-- Toolbar -->
         <ToolBar DockPanel.Dock="Top" ToolBarTray.IsLocked="True">
             <Button>File</Button>
@@ -20,38 +21,41 @@
             <Button DockPanel.Dock="Right">Search</Button>
         </DockPanel>
 
+        <!--Thumbnails-->
+        <StackPanel DockPanel.Dock="Bottom">
+            <ListView x:Name="ListView" ItemsSource="{Binding Path=List.List}" ScrollViewer.CanContentScroll="False">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelectPictureCommand}"
+                                           CommandParameter="{Binding ElementName=ListView, Path=SelectedItems}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" >
+                            <Image Height="100" Source="{Binding FilePath}" />
+                            <TextBlock Text="{Binding FileName}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
         <!--Picture Area-->
-        <Viewbox DockPanel.Dock="Left" Stretch="Uniform">
-            <Image Source="{Binding CurrentPicture.FilePath}"/>
+        <Viewbox MinHeight="300" DockPanel.Dock="Left" Stretch="Uniform">
+            <Image  Source="{Binding CurrentPicture.FilePath}"/>
         </Viewbox>
 
         <!--Control Area-->
-        <Viewbox DockPanel.Dock="Right" Stretch="Uniform">
-            <!--<Button Content="Test" />-->
-        </Viewbox>
+            <StackPanel DockPanel.Dock="Right">
+                <ComboBox ItemsSource="{Binding ExifList}" SelectedItem="{Binding CurrentExifProperty}"></ComboBox>
+                <TextBox Text="{Binding DisplayExifProperty}"></TextBox>
+            </StackPanel>
 
-        <!--Thumbnails-->
-        <ListView x:Name="ListView" DockPanel.Dock="Bottom" ItemsSource="{Binding Path=List.List}" ScrollViewer.CanContentScroll="False">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding SelectPictureCommand}"
-                                           CommandParameter="{Binding ElementName=ListView, Path=SelectedItems}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"></StackPanel>
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical" >
-                        <Image Height="100" Source="{Binding FilePath}" />
-                        <TextBlock Text="{Binding FileName}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        
     </DockPanel>
 </Window>
