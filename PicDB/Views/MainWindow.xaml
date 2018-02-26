@@ -63,10 +63,55 @@
             </StackPanel>
 
             <StackPanel Visibility="{Binding IsChecked, ElementName=ExifRadio, Converter={StaticResource B2V}}">
-                <ComboBox ItemsSource="{Binding ExifList}" SelectedItem="{Binding CurrentExifProperty}"></ComboBox>
-                <TextBox Text="{Binding DisplayExifProperty}"></TextBox>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock>Make</TextBlock>
+                    <TextBox Text="{Binding CurrentPicture.EXIF.Make, Mode=OneWay}"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock>FNumber</TextBlock>
+                    <TextBox Text="{Binding CurrentPicture.EXIF.FNumber, Mode=OneWay}"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock>ExposureTime</TextBlock>
+                    <TextBox Text="{Binding CurrentPicture.EXIF.ExposureTime, Mode=OneWay}"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock>ISOValue</TextBlock>
+                    <TextBox Text="{Binding CurrentPicture.EXIF.ISOValue, Mode=OneWay}"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock>Flash</TextBlock>
+                    <TextBox Text="{Binding CurrentPicture.EXIF.Flash, Mode=OneWay}"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock>ExposureProgram</TextBlock>
+                    <TextBox Text="{Binding CurrentPicture.EXIF.ExposureProgram, Mode=OneWay}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+
+
+            <StackPanel Visibility="{Binding IsChecked, ElementName=IptcRadio, Converter={StaticResource B2V}}">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock>Keywords</TextBlock>
+                    <TextBox Text="{Binding CurrentPicture.IPTC.Keywords, Mode=OneWay}"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock>ByLine</TextBlock>
+                    <TextBox Text="{Binding CurrentPicture.IPTC.ByLine, Mode=OneWay}"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock>CopyrightNotice</TextBlock>
+                    <TextBox Text="{Binding CurrentPicture.IPTC.CopyrightNotice, Mode=OneWay}"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock>Headline</TextBlock>
+                    <TextBox Text="{Binding CurrentPicture.IPTC.Headline, Mode=OneWay}"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock>Caption</TextBlock>
+                    <TextBox Text="{Binding CurrentPicture.IPTC.Caption, Mode=OneWay}"></TextBox>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
-
     </DockPanel>
 </Window>

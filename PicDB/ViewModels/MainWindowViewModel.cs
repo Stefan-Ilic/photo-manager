@@ -27,12 +27,6 @@ namespace PicDB.ViewModels
         public MainWindowViewModel()
         {
             CurrentPicture = List.List.First();
-            //cool
-            //ExifList = CurrentPicture.EXIF.GetType().GetProperties().Select(x => x.Name).ToList();
-            //CurrentExifProperty = ExifList.First();
-
-            CurrentExifProperty = "Make";
-            DisplayExifProperty = CurrentPicture.EXIF.Make;
 
             //Commands
             SelectPictureCommand = new DelegateCommand<object>(SelectPicture);
@@ -46,12 +40,7 @@ namespace PicDB.ViewModels
         public IPictureViewModel CurrentPicture
         {
             get => _currentPicture;
-            set
-            {
-                SetProperty(ref _currentPicture, value);
-                SetExifProperty();
-            }
-
+            set => SetProperty(ref _currentPicture, value);
         }
 
         /// <summary>
@@ -66,66 +55,6 @@ namespace PicDB.ViewModels
         /// Search ViewModel
         /// </summary>
         public ISearchViewModel Search { get; } = new SearchViewModel();
-
-        /// <summary>
-        /// List of things showing in EXIF combobox
-        /// </summary>
-        public List<string> ExifList { get; } = new List<string>() { "Make", "FNumber", "Exposure Time", "ISO Value", "Flash", "Exposure Program" };
-        //public IEnumerable ExifList { get; }
-
-        private string _currentExifProperty = "Make";
-        /// <summary>
-        /// The current EXIF property chosen in theh combobox
-        /// </summary>	
-        public string CurrentExifProperty
-        {
-            get => _currentExifProperty;
-            set
-            {
-                SetProperty(ref _currentExifProperty, value);
-                SetExifProperty();
-                //DisplayExifProperty = CurrentPicture.EXIF.GetType().GetProperty(CurrentExifProperty)
-                //    .GetValue(CurrentPicture.EXIF, null).ToString();
-            }
-        }
-
-        private void SetExifProperty()
-        {
-            switch (_currentExifProperty)
-            {
-                case "Make":
-                    DisplayExifProperty = CurrentPicture.EXIF.Make;
-                    break;
-                case "FNumber":
-                    DisplayExifProperty = CurrentPicture.EXIF.FNumber.ToString(CultureInfo.InvariantCulture);
-                    break;
-                case "Exposure Time":
-                    DisplayExifProperty = CurrentPicture.EXIF.ExposureTime.ToString(CultureInfo.InvariantCulture);
-                    break;
-                case "ISO Value":
-                    DisplayExifProperty = CurrentPicture.EXIF.ISOValue.ToString(CultureInfo.InvariantCulture);
-                    break;
-                case "Flash":
-                    DisplayExifProperty = CurrentPicture.EXIF.Flash.ToString();
-                    break;
-                case "Exposure Program":
-                    DisplayExifProperty = CurrentPicture.EXIF.ExposureProgram;
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-
-        private string _displayExifProperty;
-        /// <summary>
-        /// Exif property that is currently being viewed
-        /// </summary>	
-        public string DisplayExifProperty
-        {
-            get => _displayExifProperty;
-            set => SetProperty(ref _displayExifProperty, value);
-        }
 
         #region Commands
 
