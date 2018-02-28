@@ -82,10 +82,7 @@ namespace PicDB.ViewModels
             if (!Directory.Exists(@"C:\projects\SWE2\SWE2-CS\deploy\Pictures\")) { return list; }
             var fullFiles = Directory.GetFiles(@"C:\projects\SWE2\SWE2-CS\deploy\Pictures\", "*.jpg", SearchOption.TopDirectoryOnly);
             var files = fullFiles.Select(Path.GetFileName).ToList();
-            foreach (var file in files)
-            {
-                list.Add(new PictureViewModel(new PictureModel(file)));
-            }
+            list.AddRange(files.Select(file => new PictureViewModel(new PictureModel(file))));
             return list;
         }
 
