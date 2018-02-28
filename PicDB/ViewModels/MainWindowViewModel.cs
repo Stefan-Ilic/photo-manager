@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -26,7 +27,8 @@ namespace PicDB.ViewModels
         /// </summary>
         public MainWindowViewModel()
         {
-            CurrentPicture = List.List.FirstOrDefault();
+            List = new PictureListViewModel(GetPictureViewModels());
+            CurrentPicture = List.List.First();
 
             //Commands
             SelectPictureCommand = new DelegateCommand<object>(SelectPicture);
@@ -46,10 +48,7 @@ namespace PicDB.ViewModels
         /// <summary>
         /// ViewModel with a list of all Pictures
         /// </summary>
-        public IPictureListViewModel List { get; } = new PictureListViewModel()
-        {
-            List = new List<IPictureViewModel>() { new PictureViewModel(new PictureModel("Img1.jpg")), new PictureViewModel(new PictureModel("Img2.jpg")), new PictureViewModel(new PictureModel("Img3.jpg")), new PictureViewModel(new PictureModel("Img4.jpg")) }
-        };
+        public IPictureListViewModel List { get; }
 
         /// <summary>
         /// Search ViewModel
@@ -68,6 +67,22 @@ namespace PicDB.ViewModels
             var items = (IList)obj;
             var collection = items.Cast<IPictureViewModel>();
             CurrentPicture = collection.Single();
+        }
+
+        #endregion
+
+        #region Helper
+
+        private static IEnumerable<IPictureViewModel> GetPictureViewModels()
+        {
+            var list = new List<IPictureViewModel>();
+            var fullFiles = Directory.GetFiles(@"C:\projects\SWE2\SWE2-CS\deploy\Pictures\", "*.jpg", SearchOption.TopDirectoryOnly);
+            var files = fullFiles.Select(Path.GetFileName).ToList();
+            foreach (var file in files)
+            {
+                list.Add(new PictureViewModel(new PictureModel(file)));
+            }
+            return list;
         }
 
         #endregion

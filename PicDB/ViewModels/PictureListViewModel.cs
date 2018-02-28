@@ -47,5 +47,23 @@ namespace PicDB.ViewModels
         /// {CurrentIndex} of {Cout}
         /// </summary>
         public string CurrentPictureAsString { get; }
+
+        /// <summary>
+        /// Ctor that accepts a list and makes it its own
+        /// </summary>
+        /// <param name="list"></param>
+        public PictureListViewModel(IEnumerable<IPictureViewModel> list)
+        {
+            List = list;
+        }
+
+
+        /// <summary>
+        /// Empty ctor
+        /// </summary>
+        public PictureListViewModel()
+        {
+            
+        }
     }
 }
