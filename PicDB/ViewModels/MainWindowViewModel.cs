@@ -26,7 +26,7 @@ namespace PicDB.ViewModels
         /// </summary>
         public MainWindowViewModel()
         {
-            CurrentPicture = List.List.First();
+            CurrentPicture = List.List.FirstOrDefault();
 
             //Commands
             SelectPictureCommand = new DelegateCommand<object>(SelectPicture);
