@@ -27,8 +27,8 @@ namespace PicDB.ViewModels
         /// </summary>
         public MainWindowViewModel()
         {
-            List = new PictureListViewModel(GetPictureViewModels());
-            if (List.List.Count() != 0)
+            List = new PictureListViewModel();
+            if (List.Count != 0)
             {
                 CurrentPicture = List.List.First();
             }
@@ -70,20 +70,6 @@ namespace PicDB.ViewModels
             var items = (IList)obj;
             var collection = items.Cast<IPictureViewModel>();
             CurrentPicture = collection.Single();
-        }
-
-        #endregion
-
-        #region Helper
-
-        private static IEnumerable<IPictureViewModel> GetPictureViewModels()
-        {
-            var list = new List<IPictureViewModel>();
-            if (!Directory.Exists(@"C:\projects\SWE2\SWE2-CS\deploy\Pictures\")) { return list; }
-            var fullFiles = Directory.GetFiles(@"C:\projects\SWE2\SWE2-CS\deploy\Pictures\", "*.jpg", SearchOption.TopDirectoryOnly);
-            var files = fullFiles.Select(Path.GetFileName).ToList();
-            list.AddRange(files.Select(file => new PictureViewModel(new PictureModel(file))));
-            return list;
         }
 
         #endregion

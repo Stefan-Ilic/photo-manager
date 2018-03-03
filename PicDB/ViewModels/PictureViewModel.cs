@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using BIF.SWE2.Interfaces.Models;
@@ -50,7 +51,7 @@ namespace PicDB.ViewModels
         /// <summary>
         /// Full file path, used to load the image
         /// </summary>
-        public string FilePath => Path.Combine(@"C:\projects\SWE2\SWE2-CS\deploy\Pictures\", FileName);
+        public string FilePath => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Pictures\", FileName);
 
         /// <summary>
         /// The line below the Picture. Format: {IPTC.Headline|FileName} (by {Photographer|IPTC.ByLine}).

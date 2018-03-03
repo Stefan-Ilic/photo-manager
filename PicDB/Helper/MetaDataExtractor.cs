@@ -24,7 +24,7 @@ namespace PicDB.Helper
         /// <param name="fileName"></param>
         public MetaDataExtractor(string fileName)
         {
-            const string path = @"C:\projects\SWE2\SWE2-CS\deploy\Pictures\";
+            const string path = @"Pictures\";
             var fullPath = Path.Combine(path, fileName);
             if (typeof(T) == typeof(EXIFModel))
             {

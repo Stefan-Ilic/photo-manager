@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BIF.SWE2.Interfaces.ViewModels;
+using PicDB.Models;
 using Prism.Mvvm;
 
 namespace PicDB.ViewModels
@@ -36,7 +38,7 @@ namespace PicDB.ViewModels
         /// <summary>
         /// Number of all images
         /// </summary>
-        public int Count { get; }
+        public int Count => List.Count();
 
         /// <summary>
         /// The current Index, 1 based
@@ -49,21 +51,21 @@ namespace PicDB.ViewModels
         public string CurrentPictureAsString { get; }
 
         /// <summary>
-        /// Ctor that accepts a list and makes it its own
-        /// </summary>
-        /// <param name="list"></param>
-        public PictureListViewModel(IEnumerable<IPictureViewModel> list)
-        {
-            List = list;
-        }
-
-
-        /// <summary>
-        /// Empty ctor
+        /// Creates PictureList from the directory
         /// </summary>
         public PictureListViewModel()
         {
-            
+            List = GetPictureViewModels();
+        }
+
+        private static IEnumerable<IPictureViewModel> GetPictureViewModels()
+        {
+            var list = new List<IPictureViewModel>();
+            if (!Directory.Exists(@"Pictures\")) { return list; }
+            var fullFiles = Directory.GetFiles(@"Pictures\", "*.jpg", SearchOption.TopDirectoryOnly);
+            var files = fullFiles.Select(Path.GetFileName).ToList();
+            list.AddRange(files.Select(file => new PictureViewModel(new PictureModel(file))));
+            return list;
         }
     }
 }
