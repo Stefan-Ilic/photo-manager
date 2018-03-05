@@ -8,6 +8,7 @@ using BIF.SWE2.Interfaces;
 using BIF.SWE2.Interfaces.Models;
 using BIF.SWE2.Interfaces.ViewModels;
 using PicDB.Models;
+using PicDB.Properties;
 using Prism.Mvvm;
 
 namespace PicDB.ViewModels
@@ -29,10 +30,74 @@ namespace PicDB.ViewModels
             ExposureTime = mdl.ExposureTime;
             ISOValue = mdl.ISOValue;
             Flash = mdl.Flash;
-            ExposureProgram = mdl.ExposureTime.ToString(CultureInfo.InvariantCulture);
-            ExposureProgramResource = ExposureProgram;
+            ExposureProgram = GetExposureProgram(mdl.ExposureProgram);
+            ExposureProgramResource = GetExposureProgramResource(mdl.ExposureProgram);
+        }
 
+        private static string GetExposureProgram(ExposurePrograms exp)
+        {
+            switch (exp)
+            {
+                case ExposurePrograms.ActionProgram:
+                    return "Action Program";
+                case ExposurePrograms.LandscapeMode:
+                    return "Landscape Mode";
+                case ExposurePrograms.PortraitMode:
+                    return "Portrait Mode";
+                case ExposurePrograms.AperturePriority:
+                    return "Aperture Priority";
+                case ExposurePrograms.CreativeProgram:
+                    return "Creative Program";
+                case ExposurePrograms.Manual:
+                    return "Manual";
+                case ExposurePrograms.Normal:
+                    return "Normal";
+                case ExposurePrograms.ShutterPriority:
+                    return "Shutter Priority";
+                case ExposurePrograms.NotDefined:
+                    return "Not Defined";
+                default:
+                    throw new NotSupportedException();
+            }
+        }
 
+        private static string GetExposureProgramResource(ExposurePrograms exp)
+        {
+            string pic;
+            switch (exp)
+            {
+                case ExposurePrograms.ActionProgram:
+                    pic = "ActionProgram";
+                    break;
+                case ExposurePrograms.LandscapeMode:
+                    pic = "LandscapeMode";
+                    break;
+                case ExposurePrograms.PortraitMode:
+                    pic = "PortraitMode";
+                    break;
+                case ExposurePrograms.AperturePriority:
+                    pic = "AperturePriority";
+                    break;
+                case ExposurePrograms.CreativeProgram:
+                    pic = "CreativeProgram";
+                    break;
+                case ExposurePrograms.Manual:
+                    pic = "Manual";
+                    break;
+                case ExposurePrograms.Normal:
+                    pic = "Normal";
+                    break;
+                case ExposurePrograms.ShutterPriority:
+                    pic = "ShutterPriority";
+                    break;
+                case ExposurePrograms.NotDefined:
+                    pic = "NotDefined";
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+
+            return "/PicDB;component/Resources/" + pic + ".png";
         }
 
         /// <summary>
@@ -40,7 +105,7 @@ namespace PicDB.ViewModels
         /// </summary>
         public EXIFViewModel()
         {
-            
+
         }
 
         /// <summary>
@@ -76,7 +141,7 @@ namespace PicDB.ViewModels
         /// <summary>
         /// The Exposure Program as image resource
         /// </summary>
-        public string ExposureProgramResource { get; } //TODO ask what the hell that is
+        public string ExposureProgramResource { get; }
 
         /// <summary>
         /// Gets or sets a optional camera view model
@@ -86,7 +151,8 @@ namespace PicDB.ViewModels
         /// <summary>
         /// Returns a ISO rating if a camera is set.
         /// </summary>
-        public ISORatings ISORating {
+        public ISORatings ISORating
+        {
             get
             {
                 if (ISOValue == 0 || Camera == null)
@@ -102,7 +168,8 @@ namespace PicDB.ViewModels
                     return ISORatings.Acceptable;
                 }
                 return ISORatings.Good;
-            } }
+            }
+        }
 
         /// <summary>
         /// Returns a image resource of a ISO rating if a camera is set.

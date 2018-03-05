@@ -33,6 +33,7 @@ namespace PicDB.Models
             ExposureTime = extractor.ExposureTime;
             ISOValue = extractor.ISOValue;
             Flash = extractor.Flash;
+            ExposureProgram = extractor.ExposureProgram;
         }
 
         /// <summary>

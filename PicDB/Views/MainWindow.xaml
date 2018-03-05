@@ -42,7 +42,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical" >
-                            <Image Height="100" Source="{Binding FilePath}" />
+                            <Image Height="100" Source="{Binding FilePath}" RenderOptions.BitmapScalingMode="HighQuality" />
                             <TextBlock Text="{Binding FileName}" />
                         </StackPanel>
                     </DataTemplate>
@@ -64,16 +64,16 @@
 
             <StackPanel Visibility="{Binding IsChecked, ElementName=ExifRadio, Converter={StaticResource B2V}}">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock>Make</TextBlock>
-                    <TextBox Text="{Binding CurrentPicture.EXIF.Make, Mode=OneWay}"></TextBox>
+                    <TextBlock FontWeight="Bold">Make</TextBlock>
+                    <TextBlock Text="{Binding CurrentPicture.EXIF.Make}"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock>FNumber</TextBlock>
-                    <TextBox Text="{Binding CurrentPicture.EXIF.FNumber, Mode=OneWay}"></TextBox>
+                    <TextBlock FontWeight="Bold">FNumber</TextBlock>
+                    <TextBlock Text="{Binding CurrentPicture.EXIF.FNumber}"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock>ExposureTime</TextBlock>
-                    <TextBox Text="{Binding CurrentPicture.EXIF.ExposureTime, Mode=OneWay}"></TextBox>
+                    <TextBlock FontWeight="Bold">ExposureTime</TextBlock>
+                    <TextBlock Text="{Binding CurrentPicture.EXIF.ExposureTime}"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
                     <TextBlock>ISOValue</TextBlock>
@@ -86,6 +86,7 @@
                 <StackPanel Orientation="Vertical">
                     <TextBlock>ExposureProgram</TextBlock>
                     <TextBox Text="{Binding CurrentPicture.EXIF.ExposureProgram, Mode=OneWay}"></TextBox>
+                    <Image  Width="50" Source="{Binding CurrentPicture.EXIF.ExposureProgramResource}"></Image>
                 </StackPanel>
             </StackPanel>
 

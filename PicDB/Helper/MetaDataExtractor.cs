@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using BIF.SWE2.Interfaces;
 using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
@@ -87,7 +88,38 @@ namespace PicDB.Helper
                             }
                             break;
                         case "Exposure Program":
-                            //TODO TO BE DONE
+                            switch (tag.Description.ToLower())
+                            {
+                                case "aperture priority":
+                                    ExposureProgram = ExposurePrograms.AperturePriority;
+                                    break;
+                                case "not defined":
+                                    ExposureProgram = ExposurePrograms.NotDefined;
+                                    break;
+                                case "manual":
+                                    ExposureProgram = ExposurePrograms.Manual;
+                                    break;
+                                case "normal":
+                                    ExposureProgram = ExposurePrograms.Normal;
+                                    break;
+                                case "shutter priority":
+                                    ExposureProgram = ExposurePrograms.ShutterPriority;
+                                    break;
+                                case "creative program":
+                                    ExposureProgram = ExposurePrograms.CreativeProgram;
+                                    break;
+                                case "action program":
+                                    ExposureProgram = ExposurePrograms.ActionProgram;
+                                    break;
+                                case "portrait mode":
+                                    ExposureProgram = ExposurePrograms.PortraitMode;
+                                    break;
+                                case "landscape mode":
+                                    ExposureProgram = ExposurePrograms.LandscapeMode;
+                                    break;
+                                default:
+                                    throw new NotSupportedException();
+                            }
                             break;
                     }
                 }
