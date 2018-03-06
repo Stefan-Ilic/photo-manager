@@ -24,7 +24,6 @@ namespace PicDB.ViewModels
         /// <param name="mdl"></param>
         public EXIFViewModel(IEXIFModel mdl)
         {
-
             Make = mdl.Make;
             FNumber = mdl.FNumber;
             ExposureTime = mdl.ExposureTime;
@@ -132,6 +131,16 @@ namespace PicDB.ViewModels
         /// Flash yes/no
         /// </summary>
         public bool Flash { get; }
+
+        /// <summary>
+        /// Pic for flash in view
+        /// </summary>
+        public string FlashPic => Flash ? "/PicDB;component/Resources/FlashOn.png" : "/PicDB;component/Resources/FlashOff.png";
+
+        /// <summary>
+        /// Text for flash in view
+        /// </summary>
+        public string FlashText => Flash ? "On" : "Off";
 
         /// <summary>
         /// The Exposure Program as string

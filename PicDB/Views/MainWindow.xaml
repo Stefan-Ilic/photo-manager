@@ -4,12 +4,12 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="MainWindow" Height="500" Width="700" MinHeight="500">
+        Title="MainWindow" Height="670" Width="1000" MinHeight="670" MinWidth="1000">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="B2V" />
     </Window.Resources>
 
-    <DockPanel LastChildFill="False">
+    <DockPanel LastChildFill="True">
 
         <!-- Toolbar -->
         <ToolBar DockPanel.Dock="Top" ToolBarTray.IsLocked="True">
@@ -56,37 +56,50 @@
         </Viewbox>
 
         <!--Control Area-->
-        <StackPanel DockPanel.Dock="Left">
-            <StackPanel Orientation="Horizontal">
-                <RadioButton IsChecked="True" Name="ExifRadio" Style="{StaticResource {x:Type ToggleButton}}" MinWidth="100">EXIF</RadioButton>
-                <RadioButton Name="IptcRadio" Style="{StaticResource {x:Type ToggleButton}}" MinWidth="100">IPTC</RadioButton>
-            </StackPanel>
+        <StackPanel>
+            <UniformGrid>
+                <RadioButton Height="30" DockPanel.Dock="Left" IsChecked="True" Name="ExifRadio" Style="{StaticResource {x:Type ToggleButton}}" MinWidth="100">EXIF</RadioButton>
+                <RadioButton Height="30" DockPanel.Dock="Right" Name="IptcRadio" Style="{StaticResource {x:Type ToggleButton}}" MinWidth="100">IPTC</RadioButton>
+            </UniformGrid>
 
-            <StackPanel Visibility="{Binding IsChecked, ElementName=ExifRadio, Converter={StaticResource B2V}}">
+            <StackPanel Margin="10,0,0,0" Visibility="{Binding IsChecked, ElementName=ExifRadio, Converter={StaticResource B2V}}">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="20"/>
+                    </Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Margin" Value=" 0,0,0,10"></Setter>
+                    </Style>
+                </StackPanel.Resources>
                 <StackPanel Orientation="Vertical">
                     <TextBlock FontWeight="Bold">Make</TextBlock>
                     <TextBlock Text="{Binding CurrentPicture.EXIF.Make}"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock FontWeight="Bold">FNumber</TextBlock>
+                    <TextBlock FontWeight="Bold">F-Number</TextBlock>
                     <TextBlock Text="{Binding CurrentPicture.EXIF.FNumber}"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
                     <TextBlock FontWeight="Bold">ExposureTime</TextBlock>
-                    <TextBlock Text="{Binding CurrentPicture.EXIF.ExposureTime}"></TextBlock>
+                    <TextBlock Text="{Binding CurrentPicture.EXIF.ExposureTime , StringFormat={}{0} Seconds}"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock>ISOValue</TextBlock>
-                    <TextBox Text="{Binding CurrentPicture.EXIF.ISOValue, Mode=OneWay}"></TextBox>
+                    <TextBlock FontWeight="Bold">ISOValue</TextBlock>
+                    <TextBlock Text="{Binding CurrentPicture.EXIF.ISOValue}"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock>Flash</TextBlock>
-                    <TextBox Text="{Binding CurrentPicture.EXIF.Flash, Mode=OneWay}"></TextBox>
+                    <TextBlock FontWeight="Bold">Flash</TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding CurrentPicture.EXIF.FlashText}"></TextBlock>
+                        <Image Margin="5,0,0,0" Width="30" Source="{Binding CurrentPicture.EXIF.FlashPic}"></Image>
+                    </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock>ExposureProgram</TextBlock>
-                    <TextBox Text="{Binding CurrentPicture.EXIF.ExposureProgram, Mode=OneWay}"></TextBox>
-                    <Image  Width="50" Source="{Binding CurrentPicture.EXIF.ExposureProgramResource}"></Image>
+                    <TextBlock FontWeight="Bold">ExposureProgram</TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding CurrentPicture.EXIF.ExposureProgram}"></TextBlock>
+                        <Image Margin="5,0,0,0" Width="30" Source="{Binding CurrentPicture.EXIF.ExposureProgramResource}"></Image>
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
 

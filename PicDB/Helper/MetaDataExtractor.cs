@@ -64,14 +64,16 @@ namespace PicDB.Helper
                         case "Exposure Time":
                             try
                             {
-                                ExposureTime = Convert.ToDecimal(tag.Description);
+                                var newTag = tag.Description.TrimEnd(" sec".ToCharArray());
+                                var calc = newTag.Split('/');
+                                ExposureTime = Convert.ToDecimal(calc[0]) / Convert.ToDecimal(calc[1]);
                             }
                             catch (Exception)
                             {
                                 FNumber = 0;
                             }
                             break;
-                        case "ISO Value":
+                        case "ISO Speed Ratings":
                             try
                             {
                                 ISOValue = Convert.ToDecimal(tag.Description);
