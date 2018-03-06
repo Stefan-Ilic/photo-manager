@@ -21,19 +21,6 @@ namespace PicDB.Models
         }
 
         /// <summary>
-        /// Ctor that accepts a filename and calls MetaDataExtractor
-        /// </summary>
-        /// <param name="filename"></param>
-        public IPTCModel(string filename)
-        {
-            var extractor = new MetaDataExtractor<IPTCModel>(filename);
-            Keywords = extractor.Keywords;
-            ByLine = extractor.ByLine;
-            CopyrightNotice = extractor.CopyrightNotice;
-            Headline = extractor.Headline;
-            Caption = extractor.Caption;
-        }
-        /// <summary>
         /// A list of keywords
         /// </summary>
         public string Keywords { get; set; }

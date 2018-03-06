@@ -22,21 +22,6 @@ namespace PicDB.Models
         }
 
         /// <summary>
-        /// Takes filename and calls MetaDataExtractor
-        /// </summary>
-        /// <param name="fileName"></param>
-        public EXIFModel(string fileName)
-        {
-            var extractor = new MetaDataExtractor<EXIFModel>(fileName);
-            Make = extractor.Make;
-            FNumber = extractor.FNumber;
-            ExposureTime = extractor.ExposureTime;
-            ISOValue = extractor.ISOValue;
-            Flash = extractor.Flash;
-            ExposureProgram = extractor.ExposureProgram;
-        }
-
-        /// <summary>
         /// Name of camera
         /// </summary>
         public string Make { get; set; }

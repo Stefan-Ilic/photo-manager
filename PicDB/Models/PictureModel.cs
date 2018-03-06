@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using BIF.SWE2.Interfaces.Models;
+using PicDB.Helper;
 
 namespace PicDB.Models
 {
@@ -21,8 +23,8 @@ namespace PicDB.Models
             FileName = filename;
             Camera = new CameraModel();
             if (mock) return;
-            EXIF = new EXIFModel(filename);
-            IPTC = new IPTCModel(filename);
+            EXIF = MetaDataExtractor<EXIFModel>.Create(filename);
+            IPTC = MetaDataExtractor<IPTCModel>.Create(filename);
         }
 
         /// <summary>

@@ -6,45 +6,45 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using BIF.SWE2.Interfaces;
+using BIF.SWE2.Interfaces.Models;
 using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
 using MetadataExtractor.Formats.Iptc;
 using PicDB.Models;
-using Directory = System.IO.Directory;
 
 namespace PicDB.Helper
 {
     /// <summary>
     /// Extracts Metadata from a picture
     /// </summary>
-    public class MetaDataExtractor<T>
+    public static class MetaDataExtractor<T>
     {
         /// <summary>
         /// Extracts metadata and assigns properties according to Type of Metadata
         /// </summary>
         /// <param name="fileName"></param>
-        public MetaDataExtractor(string fileName)
+        public static T Create(string fileName)
         {
             const string path = @"Pictures\";
             var fullPath = Path.Combine(path, fileName);
             if (typeof(T) == typeof(EXIFModel))
             {
-                ExtractExif(fullPath);
+                return (T)ExtractExif(fullPath);
             }
-            else if (typeof(T) == typeof(IPTCModel))
+
+            if (typeof(T) == typeof(IPTCModel))
             {
-                ExtractIptc(fullPath);
+                return (T)ExtractIptc(fullPath);
             }
-            else
-            {
-                throw new NotSupportedException("Type is not supported");
-            }
+
+            throw new NotSupportedException("Type is not supported");
         }
 
-        private void ExtractExif(string fullPath)
+        private static IEXIFModel ExtractExif(string fullPath)
         {
             var directories = ImageMetadataReader.ReadMetadata(fullPath);
             var exif = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
+            var returner = new EXIFModel();
             if (exif != null)
             {
                 foreach (var tag in exif.Tags)
@@ -54,11 +54,11 @@ namespace PicDB.Helper
                         case "F-Number":
                             try
                             {
-                                FNumber = Convert.ToDecimal(tag.Description.TrimStart('f').TrimStart('/'));
+                                returner.FNumber = Convert.ToDecimal(tag.Description.TrimStart('f').TrimStart('/'));
                             }
                             catch (Exception)
                             {
-                                FNumber = 0;
+                                returner.FNumber = 0;
                             }
                             break;
                         case "Exposure Time":
@@ -66,58 +66,58 @@ namespace PicDB.Helper
                             {
                                 var newTag = tag.Description.TrimEnd(" sec".ToCharArray());
                                 var calc = newTag.Split('/');
-                                ExposureTime = Convert.ToDecimal(calc[0]) / Convert.ToDecimal(calc[1]);
+                                returner.ExposureTime = Convert.ToDecimal(calc[0]) / Convert.ToDecimal(calc[1]);
                             }
                             catch (Exception)
                             {
-                                FNumber = 0;
+                                returner.FNumber = 0;
                             }
                             break;
                         case "ISO Speed Ratings":
                             try
                             {
-                                ISOValue = Convert.ToDecimal(tag.Description);
+                                returner.ISOValue = Convert.ToDecimal(tag.Description);
                             }
                             catch (Exception)
                             {
-                                ISOValue = 0;
+                                returner.ISOValue = 0;
                             }
                             break;
                         case "Flash":
                             if (!tag.Description.Contains("not"))
                             {
-                                Flash = true;
+                                returner.Flash = true;
                             }
                             break;
                         case "Exposure Program":
                             switch (tag.Description.ToLower())
                             {
                                 case "aperture priority":
-                                    ExposureProgram = ExposurePrograms.AperturePriority;
+                                    returner.ExposureProgram = ExposurePrograms.AperturePriority;
                                     break;
                                 case "not defined":
-                                    ExposureProgram = ExposurePrograms.NotDefined;
+                                    returner.ExposureProgram = ExposurePrograms.NotDefined;
                                     break;
                                 case "manual":
-                                    ExposureProgram = ExposurePrograms.Manual;
+                                    returner.ExposureProgram = ExposurePrograms.Manual;
                                     break;
-                                case "normal":
-                                    ExposureProgram = ExposurePrograms.Normal;
+                                case "program normal":
+                                    returner.ExposureProgram = ExposurePrograms.Normal;
                                     break;
                                 case "shutter priority":
-                                    ExposureProgram = ExposurePrograms.ShutterPriority;
+                                    returner.ExposureProgram = ExposurePrograms.ShutterPriority;
                                     break;
                                 case "creative program":
-                                    ExposureProgram = ExposurePrograms.CreativeProgram;
+                                    returner.ExposureProgram = ExposurePrograms.CreativeProgram;
                                     break;
                                 case "action program":
-                                    ExposureProgram = ExposurePrograms.ActionProgram;
+                                    returner.ExposureProgram = ExposurePrograms.ActionProgram;
                                     break;
                                 case "portrait mode":
-                                    ExposureProgram = ExposurePrograms.PortraitMode;
+                                    returner.ExposureProgram = ExposurePrograms.PortraitMode;
                                     break;
                                 case "landscape mode":
-                                    ExposureProgram = ExposurePrograms.LandscapeMode;
+                                    returner.ExposureProgram = ExposurePrograms.LandscapeMode;
                                     break;
                                 default:
                                     throw new NotSupportedException();
@@ -133,93 +133,43 @@ namespace PicDB.Helper
                 {
                     if (tag.Name == "Make")
                     {
-                        Make = tag.Description;
+                        returner.Make = tag.Description;
                     }
                 }
             }
+
+            return returner;
         }
 
-        private void ExtractIptc(string fullPath)
+        private static IIPTCModel ExtractIptc(string fullPath)
         {
             var directories = ImageMetadataReader.ReadMetadata(fullPath);
             var iptc = directories.OfType<IptcDirectory>().FirstOrDefault();
-            if (iptc == null) return;
+            var returner = new IPTCModel();
+            if (iptc == null) return returner;
             foreach (var tag in iptc.Tags)
             {
                 switch (tag.Name)
                 {
                     case "Keywords":
-                        Keywords = tag.Description;
+                        returner.Keywords = tag.Description;
                         break;
                     case "By-line":
-                        ByLine = tag.Description;
+                        returner.ByLine = tag.Description;
                         break;
                     case "Copyright Notice":
-                        CopyrightNotice = tag.Description;
+                        returner.CopyrightNotice = tag.Description;
                         break;
                     case "Headline":
-                        Headline = tag.Description;
+                        returner.Headline = tag.Description;
                         break;
                     case "Caption/Abstract":
-                        Caption = tag.Description;
+                        returner.Caption = tag.Description;
                         break;
                 }
             }
+
+            return returner;
         }
-
-        /// <summary>
-        /// EXIF: Name of camera
-        /// </summary>
-        public string Make { get; set; }
-
-        /// <summary>
-        /// EXIF: Aperture number
-        /// </summary>
-        public decimal FNumber { get; set; }
-
-        /// <summary>
-        /// EXIF: Exposure time
-        /// </summary>
-        public decimal ExposureTime { get; set; }
-
-        /// <summary>
-        /// EXIF: ISO value
-        /// </summary>
-        public decimal ISOValue { get; set; }
-
-        /// <summary>
-        /// EXIF: Flash yes/no
-        /// </summary>
-        public bool Flash { get; set; }
-
-        /// <summary>
-        /// EXIF: The exposure program
-        /// </summary>
-        public ExposurePrograms ExposureProgram { get; set; }
-
-        /// <summary>
-        /// IPTC: A list of keywords
-        /// </summary>
-        public string Keywords { get; set; }
-
-        /// <summary>
-        /// IPTC: Name of the photographer
-        /// </summary>
-        public string ByLine { get; set; }
-
-        /// <summary>
-        /// IPTC: copyright noties. 
-        /// </summary>
-        public string CopyrightNotice { get; set; }
-
-        /// <summary>
-        /// IPTC:Summary/Headline of the picture
-        /// </summary>
-        public string Headline { get; set; }
-
-        /// <summary>
-        /// IPTC: Caption/Abstract, a description of the picture
-        /// </summary>
-        public string Caption { get; set; }
     }
 }
