@@ -85,6 +85,8 @@ namespace PicDB
         /// </summary>
         public void Sync()
         {
+            if (Dal.GetType() == typeof(MockDal)) return;
+
             var newPics = new List<IPictureModel>();
             var picdir = Path.Combine(AppContext.Instance.WorkingDirectory, "Pictures");
             var fullFiles = Directory.GetFiles(picdir, "*.jpg", SearchOption.TopDirectoryOnly);

@@ -21,8 +21,28 @@ namespace PicDB
         {
             new PictureModel()
             {
+                ID = 5678,
+                FileName = "test5678.jpg"
+            },
+            new PictureModel()
+            {
                 ID = 1234,
                 FileName = "blume"
+            },
+            new PictureModel()
+            {
+                ID = 1234543534,
+                FileName = "blume3"
+            },
+            new PictureModel()
+            {
+                ID = 12435345,
+                FileName = "blume2"
+            },
+            new PictureModel()
+            {
+                ID = 153345345,
+                FileName = "blume1"
             }
         };
 
