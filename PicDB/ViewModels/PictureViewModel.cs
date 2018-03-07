@@ -51,7 +51,7 @@ namespace PicDB.ViewModels
         /// <summary>
         /// Full file path, used to load the image
         /// </summary>
-        public string FilePath => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Pictures\", FileName);
+        public string FilePath => Path.Combine(AppContext.Instance.WorkingDirectory, "Pictures", FileName);
 
         /// <summary>
         /// The line below the Picture. Format: {IPTC.Headline|FileName} (by {Photographer|IPTC.ByLine}).

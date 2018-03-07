@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Windows;
 using BIF.SWE2.Interfaces;
 using BIF.SWE2.Interfaces.Models;
 using PicDB.Models;
@@ -23,11 +24,22 @@ namespace PicDB.Data_Access_Layer
         {
             Connect();
 
-
+            var list = new List<IPictureModel>();
+            var command = new SqlCommand(@"SELECT * FROM Pictures", Connection);
+            var reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    //var EXIF = (string)reader["EXIF"];
+                    //var IPTC = (string)reader["IPTC"];
+                    list.Add(new PictureModel((string)reader["FileName"]) {ID = (int)reader["ID"] });
+                }
+            }
 
             Disconnect();
 
-            return new List<IPictureModel>();
+            return list;
         }
 
         /// <summary>
@@ -48,35 +60,35 @@ namespace PicDB.Data_Access_Layer
         {
             Connect();
 
-            var command = new SqlCommand(@"INSERT INTO IPTC (ID, Keywords, ByLine, CopyrightNotice, Headline, Caption)
-                VALUES (@id, @keywords, @byLine, @copyrightNotice, @headline, @caption)", Connection);
-            var iptcId = GenerateId(DataObject.Iptc);
-            command.Parameters.AddWithValue("@id", iptcId);
-            command.Parameters.AddWithValue("@keywords", picture.IPTC.Keywords);
-            command.Parameters.AddWithValue("@byline", picture.IPTC.ByLine);
-            command.Parameters.AddWithValue("@copyrightNotice", picture.IPTC.CopyrightNotice);
-            command.Parameters.AddWithValue("@headline", picture.IPTC.Headline);
-            command.Parameters.AddWithValue("@caption", picture.IPTC.Caption);
-            command.ExecuteNonQuery();
+            //var command = new SqlCommand(@"INSERT INTO IPTC (ID, Keywords, ByLine, CopyrightNotice, Headline, Caption)
+            //    VALUES (@id, @keywords, @byLine, @copyrightNotice, @headline, @caption)", Connection);
+            // var iptcId = GenerateId(DataObject.Iptc);
+            //command.Parameters.AddWithValue("@id", iptcId);
+            //command.Parameters.AddWithValue("@keywords", picture.IPTC.Keywords);
+            //command.Parameters.AddWithValue("@byLine", picture.IPTC.ByLine);
+            //command.Parameters.AddWithValue("@copyrightNotice", picture.IPTC.CopyrightNotice);
+            //command.Parameters.AddWithValue("@headline", picture.IPTC.Headline);
+            //command.Parameters.AddWithValue("@caption", picture.IPTC.Caption);
+            //command.ExecuteNonQuery();
 
-            command = new SqlCommand(@"INSERT INTO EXIF (ID, Make, FNumber, ExposureTime, ISOValue, Flash)
-                VALUES (@id, @make, @fNumber, @exposureTime, @isoValue, @flash)", Connection);
-            var exifId = GenerateId(DataObject.Exif);
-            command.Parameters.AddWithValue("@id", exifId);
-            command.Parameters.AddWithValue("@make", picture.EXIF.Make);
-            command.Parameters.AddWithValue("@fNumber", picture.EXIF.FNumber);
-            command.Parameters.AddWithValue("@exposureTime", picture.EXIF.ExposureTime);
-            command.Parameters.AddWithValue("@isoValue", picture.EXIF.ISOValue);
-            command.Parameters.AddWithValue("@flash", picture.EXIF.Flash);
-            command.ExecuteNonQuery();
+            //command = new SqlCommand(@"INSERT INTO EXIF (ID, Make, FNumber, ExposureTime, ISOValue, Flash)
+            //    VALUES (@id, @make, @fNumber, @exposureTime, @isoValue, @flash)", Connection);
+            // var exifId = GenerateId(DataObject.Exif);
+            //command.Parameters.AddWithValue("@id", exifId);
+            //command.Parameters.AddWithValue("@make", picture.EXIF.Make);
+            //command.Parameters.AddWithValue("@fNumber", picture.EXIF.FNumber);
+            //command.Parameters.AddWithValue("@exposureTime", picture.EXIF.ExposureTime);
+            //command.Parameters.AddWithValue("@isoValue", picture.EXIF.ISOValue);
+            //command.Parameters.AddWithValue("@flash", picture.EXIF.Flash);
+            //command.ExecuteNonQuery();
 
-            command = new SqlCommand(@"INSERT INTO Pictures (ID, FileName, IPTC, EXIF, Camera)
-                VALUES (@id, @filename, @iptc, @exif, @camera)", Connection);
-            command.Parameters.AddWithValue("@id", picture.ID);
+            var command = new SqlCommand(@"INSERT INTO Pictures (FileName)
+                VALUES (@filename)", Connection);
+            //command.Parameters.AddWithValue("@id", picture.ID);
             command.Parameters.AddWithValue("@filename", picture.FileName);
-            command.Parameters.AddWithValue("@iptc", iptcId);
-            command.Parameters.AddWithValue("@exif", exifId);
-            command.Parameters.AddWithValue("@camera", picture.Camera.ID);
+            //command.Parameters.AddWithValue("@iptc", iptcId);
+            //command.Parameters.AddWithValue("@exif", exifId);
+            //command.Parameters.AddWithValue("@camera", picture.Camera.ID);
             command.ExecuteNonQuery();
 
             Disconnect();
@@ -88,7 +100,14 @@ namespace PicDB.Data_Access_Layer
         /// <param name="ID"></param>
         public void DeletePicture(int ID)
         {
+            Connect();
 
+            var command = new SqlCommand(@"DELETE FROM Pictures WHERE ID = @id"
+                , Connection);
+            command.Parameters.AddWithValue("@id", ID);
+            command.ExecuteNonQuery();
+
+            Disconnect();
         }
 
         /// <summary>
@@ -196,13 +215,27 @@ namespace PicDB.Data_Access_Layer
         private int GetExifCount()
         {
             var command = new SqlCommand(@"SELECT * FROM EXIF", Connection);
-            return (int)command.ExecuteScalar();
+            try
+            {
+                return (int)command.ExecuteScalar();
+            }
+            catch (Exception) //TODO change this later
+            {
+                return 0;
+            }
         }
 
         private int GetIptcCount()
         {
             var command = new SqlCommand(@"SELECT * FROM IPTC", Connection);
-            return (int)command.ExecuteScalar();
+            try
+            {
+                return (int)command.ExecuteScalar();
+            }
+            catch (Exception) //TODO change this later
+            {
+                return 0;
+            }
         }
 
         #endregion

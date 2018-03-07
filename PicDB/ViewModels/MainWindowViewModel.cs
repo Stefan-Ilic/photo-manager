@@ -27,6 +27,8 @@ namespace PicDB.ViewModels
         /// </summary>
         public MainWindowViewModel()
         {
+            var bl = new BusinessLayer();
+            bl.Sync();
             List = new PictureListViewModel();
             if (List.Count != 0)
             {

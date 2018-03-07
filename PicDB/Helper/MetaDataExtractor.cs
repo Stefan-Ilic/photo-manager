@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,7 +26,7 @@ namespace PicDB.Helper
         /// <param name="fileName"></param>
         public static T Create(string fileName)
         {
-            const string path = @"Pictures\";
+            var path = Path.Combine(AppContext.Instance.WorkingDirectory,"Pictures");
             var fullPath = Path.Combine(path, fileName);
             if (typeof(T) == typeof(EXIFModel))
             {

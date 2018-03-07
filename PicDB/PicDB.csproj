@@ -110,6 +110,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppContext.cs" />
     <Compile Include="BusinessLayer.cs" />
     <Compile Include="Data Access Layer\Dal.cs" />
     <Compile Include="Data Access Layer\DalFactory.cs" />

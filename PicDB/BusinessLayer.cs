@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using BIF.SWE2.Interfaces;
@@ -84,13 +85,32 @@ namespace PicDB
         /// </summary>
         public void Sync()
         {
-            var difference = Directory.EnumerateFiles(PicturePath).Count() - GetPictures().Count();
-            if (difference > 0)
+            var newPics = new List<IPictureModel>();
+            var picdir = Path.Combine(AppContext.Instance.WorkingDirectory, "Pictures");
+            var fullFiles = Directory.GetFiles(picdir, "*.jpg", SearchOption.TopDirectoryOnly);
+            var files = fullFiles.Select(Path.GetFileName).ToList();
+            foreach (var file in files)
             {
-                for (int i = 0; i < difference; i++)
+                newPics.Add(new PictureModel(file));
+            }
+
+            var curPics = GetPictures();
+            var curFiles = GetPictures().Select(x => x.FileName);
+
+            var filesToDelete = curFiles.Except(files).ToList();
+            var filesToAdd = files.Except(curFiles).ToList();
+
+            foreach (var pic in curPics)
+            {
+                if (filesToDelete.Contains(pic.FileName))
                 {
-                    Save(new PictureModel());
+                    DeletePicture(pic.ID);
                 }
+            }
+
+            foreach (var file in filesToAdd)
+            {
+                Save(new PictureModel(file));
             }
         }
 
@@ -245,6 +265,10 @@ namespace PicDB
                 case DataObject.Photographer:
                     return GetPhotographers().Max(x => x.ID) + 1;
                 case DataObject.Picture:
+                    if (!GetPictures().Any())
+                    {
+                        return 1;
+                    }
                     return GetPictures().Max(x => x.ID) + 1;
                 default:
                     throw new InvalidEnumArgumentException();

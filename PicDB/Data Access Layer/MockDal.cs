@@ -21,11 +21,6 @@ namespace PicDB
         {
             new PictureModel()
             {
-                ID = 5678,
-                FileName = "test5678.jpg"
-            },
-            new PictureModel()
-            {
                 ID = 1234,
                 FileName = "blume"
             }

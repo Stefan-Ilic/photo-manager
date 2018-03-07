@@ -23,26 +23,26 @@ namespace PicDB.Models
         /// <summary>
         /// A list of keywords
         /// </summary>
-        public string Keywords { get; set; }
+        public string Keywords { get; set; } = "";
 
         /// <summary>
         /// Name of the photographer
         /// </summary>
-        public string ByLine { get; set; }
+        public string ByLine { get; set; } = "";
 
         /// <summary>
         /// copyright noties. 
         /// </summary>
-        public string CopyrightNotice { get; set; }
+        public string CopyrightNotice { get; set; } = "";
 
         /// <summary>
         /// Summary/Headline of the picture
         /// </summary>
-        public string Headline { get; set; }
+        public string Headline { get; set; } = "";
 
         /// <summary>
         /// Caption/Abstract, a description of the picture
         /// </summary>
-        public string Caption { get; set; }
+        public string Caption { get; set; } = "";
     }
 }
