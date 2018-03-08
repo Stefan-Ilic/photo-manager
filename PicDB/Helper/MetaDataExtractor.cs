@@ -26,7 +26,7 @@ namespace PicDB.Helper
         /// <param name="fileName"></param>
         public static T Create(string fileName)
         {
-            var path = Path.Combine(AppContext.Instance.WorkingDirectory,"Pictures");
+            var path = Path.Combine(AppContext.Instance.WorkingDirectory, "Pictures");
             var fullPath = Path.Combine(path, fileName);
             if (typeof(T) == typeof(EXIFModel))
             {
@@ -45,101 +45,19 @@ namespace PicDB.Helper
         {
             var directories = ImageMetadataReader.ReadMetadata(fullPath);
             var exif = directories.OfType<ExifSubIfdDirectory>().FirstOrDefault();
-            var returner = new EXIFModel();
-            if (exif != null)
-            {
-                foreach (var tag in exif.Tags)
-                {
-                    switch (tag.Name)
-                    {
-                        case "F-Number":
-                            try
-                            {
-                                returner.FNumber = Convert.ToDecimal(tag.Description.TrimStart('f').TrimStart('/'));
-                            }
-                            catch (Exception)
-                            {
-                                returner.FNumber = 0;
-                            }
-                            break;
-                        case "Exposure Time":
-                            try
-                            {
-                                var newTag = tag.Description.TrimEnd(" sec".ToCharArray());
-                                var calc = newTag.Split('/');
-                                returner.ExposureTime = Convert.ToDecimal(calc[0]) / Convert.ToDecimal(calc[1]);
-                            }
-                            catch (Exception)
-                            {
-                                returner.FNumber = 0;
-                            }
-                            break;
-                        case "ISO Speed Ratings":
-                            try
-                            {
-                                returner.ISOValue = Convert.ToDecimal(tag.Description);
-                            }
-                            catch (Exception)
-                            {
-                                returner.ISOValue = 0;
-                            }
-                            break;
-                        case "Flash":
-                            if (!tag.Description.Contains("not"))
-                            {
-                                returner.Flash = true;
-                            }
-                            break;
-                        case "Exposure Program":
-                            switch (tag.Description.ToLower())
-                            {
-                                case "aperture priority":
-                                    returner.ExposureProgram = ExposurePrograms.AperturePriority;
-                                    break;
-                                case "not defined":
-                                    returner.ExposureProgram = ExposurePrograms.NotDefined;
-                                    break;
-                                case "manual":
-                                    returner.ExposureProgram = ExposurePrograms.Manual;
-                                    break;
-                                case "program normal":
-                                    returner.ExposureProgram = ExposurePrograms.Normal;
-                                    break;
-                                case "shutter priority":
-                                    returner.ExposureProgram = ExposurePrograms.ShutterPriority;
-                                    break;
-                                case "creative program":
-                                    returner.ExposureProgram = ExposurePrograms.CreativeProgram;
-                                    break;
-                                case "action program":
-                                    returner.ExposureProgram = ExposurePrograms.ActionProgram;
-                                    break;
-                                case "portrait mode":
-                                    returner.ExposureProgram = ExposurePrograms.PortraitMode;
-                                    break;
-                                case "landscape mode":
-                                    returner.ExposureProgram = ExposurePrograms.LandscapeMode;
-                                    break;
-                                default:
-                                    throw new NotSupportedException();
-                            }
-                            break;
-                    }
-                }
-            }
             var exifMake = directories.OfType<ExifIfd0Directory>().FirstOrDefault();
-            if (exifMake != null)
+            var exposureTime = exif?.GetDescription(ExifDirectoryBase.TagExposureTime).TrimEnd(" sec".ToCharArray())
+                .Split('/');
+            return new EXIFModel()
             {
-                foreach (var tag in exifMake.Tags)
-                {
-                    if (tag.Name == "Make")
-                    {
-                        returner.Make = tag.Description;
-                    }
-                }
-            }
-
-            return returner;
+                FNumber = Convert.ToDecimal(exif?.GetDescription(ExifDirectoryBase.TagFNumber).TrimStart('f')
+                    .TrimStart('/')),
+                ExposureTime = Convert.ToDecimal(exposureTime?[0]) / Convert.ToDecimal(exposureTime?[1]),
+                ISOValue = Convert.ToDecimal(exif?.GetDescription(ExifDirectoryBase.TagIsoEquivalent)),
+                Flash = exif?.GetDescription(ExifDirectoryBase.TagIsoEquivalent).Contains("not") ?? false,
+                ExposureProgram = GetExposureProgram(exif?.GetDescription(ExifDirectoryBase.TagExposureProgram)),
+                Make = exifMake?.GetDescription(ExifDirectoryBase.TagMake)
+            };
         }
 
         private static IIPTCModel ExtractIptc(string fullPath)
@@ -171,6 +89,33 @@ namespace PicDB.Helper
             }
 
             return returner;
+        }
+
+        private static ExposurePrograms GetExposureProgram(string exp)
+        {
+            switch (exp.ToLower())
+            {
+                case "aperture priority":
+                    return ExposurePrograms.AperturePriority;
+                case "not defined":
+                    return ExposurePrograms.NotDefined;
+                case "manual":
+                    return ExposurePrograms.Manual;
+                case "program normal":
+                    return ExposurePrograms.Normal;
+                case "shutter priority":
+                    return ExposurePrograms.ShutterPriority;
+                case "creative program":
+                    return ExposurePrograms.CreativeProgram;
+                case "action program":
+                    return ExposurePrograms.ActionProgram;
+                case "portrait mode":
+                    return ExposurePrograms.PortraitMode;
+                case "landscape mode":
+                    return ExposurePrograms.LandscapeMode;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }
