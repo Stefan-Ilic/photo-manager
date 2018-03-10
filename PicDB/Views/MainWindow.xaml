@@ -17,6 +17,7 @@
             <Button>Edit</Button>
             <Button>Options</Button>
             <Button>Help</Button>
+            <Button Command="{Binding ReportSingleCommand}">Create Report</Button>
         </ToolBar>
 
         <!--Searchbar-->

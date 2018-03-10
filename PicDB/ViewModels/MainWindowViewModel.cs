@@ -12,6 +12,7 @@ using System.Windows.Input;
 using BIF.SWE2.Interfaces.ViewModels;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using PicDB.Models;
+using PicDB.Reporting;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -37,6 +38,7 @@ namespace PicDB.ViewModels
 
             //Commands
             SelectPictureCommand = new DelegateCommand<object>(SelectPicture);
+            ReportSingleCommand = new DelegateCommand(ReportSingle);
         }
 
 
@@ -72,6 +74,17 @@ namespace PicDB.ViewModels
             var items = (IList)obj;
             var collection = items.Cast<IPictureViewModel>();
             CurrentPicture = collection.Single();
+        }
+
+        /// <summary>
+        /// Creates a Report for the CurrentPicture
+        /// </summary>
+        public ICommand ReportSingleCommand { get; set; }
+
+        private void ReportSingle()
+        {
+            Report.Create(CurrentPicture);
+            MessageBox.Show("Report created!");
         }
 
         #endregion
