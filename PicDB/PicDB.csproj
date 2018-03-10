@@ -123,6 +123,7 @@
     <Compile Include="Exceptions.cs" />
     <Compile Include="Helper\MetaDataExtractor.cs" />
     <Compile Include="Data Access Layer\MockDal.cs" />
+    <Compile Include="Helper\PdfWriter.cs" />
     <Compile Include="Models\CameraModel.cs" />
     <Compile Include="Models\EXIFModel.cs" />
     <Compile Include="Models\IPTCModel.cs" />
