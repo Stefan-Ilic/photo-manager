@@ -22,9 +22,9 @@ namespace PicDB.Models
         {
             FileName = filename;
             Camera = new CameraModel();
-            if (mock) return;
-            EXIF = MetaDataExtractor<EXIFModel>.Create(filename);
-            IPTC = MetaDataExtractor<IPTCModel>.Create(filename);
+            //if (mock) return;
+            //EXIF = MetaDataExtractor<EXIFModel>.Create(filename);
+            //IPTC = MetaDataExtractor<IPTCModel>.Create(filename);
         }
 
         /// <summary>

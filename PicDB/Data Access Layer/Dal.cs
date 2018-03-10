@@ -25,7 +25,8 @@ namespace PicDB.Data_Access_Layer
             Connect();
 
             var list = new List<IPictureModel>();
-            var command = new SqlCommand(@"SELECT * FROM Pictures", Connection);
+            var command = new SqlCommand(@"SELECT Pictures.ID as picture_id, Filename, Make, FNumber, ExposureTime, ISOValue, Flash, ExposureProgram
+                FROM Pictures INNER JOIN EXIF ON Pictures.ID = EXIF.ID", Connection);
             var reader = command.ExecuteReader();
             if (reader.HasRows)
             {
@@ -33,7 +34,19 @@ namespace PicDB.Data_Access_Layer
                 {
                     //var EXIF = (string)reader["EXIF"];
                     //var IPTC = (string)reader["IPTC"];
-                    list.Add(new PictureModel((string)reader["FileName"]) {ID = (int)reader["ID"] });
+                    list.Add(new PictureModel((string)reader["FileName"])
+                    {
+                        ID = (int)reader["picture_id"],
+                        EXIF = new EXIFModel()
+                        {
+                            Make = (string)reader["Make"],
+                            FNumber = (decimal)reader["FNumber"],
+                            ExposureTime = (decimal)reader["ExposureTime"],
+                            ISOValue = (decimal)reader["ISOValue"],
+                            Flash = (bool)reader["Flash"],
+                            ExposureProgram = (ExposurePrograms)reader["ExposureProgram"]
+                        }
+                    });
                 }
             }
 
@@ -71,24 +84,27 @@ namespace PicDB.Data_Access_Layer
             //command.Parameters.AddWithValue("@caption", picture.IPTC.Caption);
             //command.ExecuteNonQuery();
 
-            //command = new SqlCommand(@"INSERT INTO EXIF (ID, Make, FNumber, ExposureTime, ISOValue, Flash)
-            //    VALUES (@id, @make, @fNumber, @exposureTime, @isoValue, @flash)", Connection);
-            // var exifId = GenerateId(DataObject.Exif);
-            //command.Parameters.AddWithValue("@id", exifId);
-            //command.Parameters.AddWithValue("@make", picture.EXIF.Make);
-            //command.Parameters.AddWithValue("@fNumber", picture.EXIF.FNumber);
-            //command.Parameters.AddWithValue("@exposureTime", picture.EXIF.ExposureTime);
-            //command.Parameters.AddWithValue("@isoValue", picture.EXIF.ISOValue);
-            //command.Parameters.AddWithValue("@flash", picture.EXIF.Flash);
-            //command.ExecuteNonQuery();
 
-            var command = new SqlCommand(@"INSERT INTO Pictures (FileName)
+
+            var command = new SqlCommand(@"INSERT INTO Pictures (FileName) OUTPUT INSERTED.ID
                 VALUES (@filename)", Connection);
             //command.Parameters.AddWithValue("@id", picture.ID);
             command.Parameters.AddWithValue("@filename", picture.FileName);
             //command.Parameters.AddWithValue("@iptc", iptcId);
             //command.Parameters.AddWithValue("@exif", exifId);
             //command.Parameters.AddWithValue("@camera", picture.Camera.ID);
+            //command.ExecuteNonQuery();
+            var newId = (int)command.ExecuteScalar();
+
+            command = new SqlCommand(@"INSERT INTO EXIF (ID, Make, FNumber, ExposureTime, ISOValue, Flash, ExposureProgram)
+                VALUES (@id, @make, @fNumber, @exposureTime, @isoValue, @flash, @exposureProgram)", Connection);
+            command.Parameters.AddWithValue("@id", newId);
+            command.Parameters.AddWithValue("@make", picture.EXIF.Make);
+            command.Parameters.AddWithValue("@fNumber", picture.EXIF.FNumber);
+            command.Parameters.AddWithValue("@exposureTime", picture.EXIF.ExposureTime);
+            command.Parameters.AddWithValue("@isoValue", picture.EXIF.ISOValue);
+            command.Parameters.AddWithValue("@flash", picture.EXIF.Flash);
+            command.Parameters.AddWithValue("@exposureProgram", (int)picture.EXIF.ExposureProgram);
             command.ExecuteNonQuery();
 
             Disconnect();

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using BIF.SWE2.Interfaces;
 using BIF.SWE2.Interfaces.Models;
 using PicDB.Models;
+using PicDB.Helper;
 
 namespace PicDB
 {
@@ -41,6 +42,10 @@ namespace PicDB
             return Dal.GetPictures(null, null, null, null);
         }
 
+        //TODO Search for names
+        //TODO Search for photographers
+        //TODO Search for IPTC
+        //TODO Search for EXIF
         /// <summary>
         /// Returns a filterd list of Pictures from the directory, based on a database query.
         /// </summary>
@@ -97,22 +102,22 @@ namespace PicDB
             }
 
             var curPics = GetPictures();
-            var curFiles = GetPictures().Select(x => x.FileName);
+            var curPicNames = GetPictures().Select(x => x.FileName);
 
-            var filesToDelete = curFiles.Except(files).ToList();
-            var filesToAdd = files.Except(curFiles).ToList();
+            var picNamesToDelete = curPicNames.Except(files).ToList();
+            var picNamesToAdd = files.Except(curPicNames).ToList();
 
             foreach (var pic in curPics)
             {
-                if (filesToDelete.Contains(pic.FileName))
+                if (picNamesToDelete.Contains(pic.FileName))
                 {
                     DeletePicture(pic.ID);
                 }
             }
 
-            foreach (var file in filesToAdd)
+            foreach (var picName in picNamesToAdd)
             {
-                Save(new PictureModel(file));
+                Save(new PictureModel(picName){EXIF = ExtractEXIF(picName)});
             }
         }
 
@@ -194,13 +199,14 @@ namespace PicDB
             {
                 throw new MissingPictureException();
             }
-            return new EXIFModel()
-            {
-                ExposureTime = 1,
-                FNumber = 1,
-                ISOValue = 1,
-                Make = "Nikon I guess"
-            };
+            //return new EXIFModel()
+            //{
+            //    ExposureTime = 1,
+            //    FNumber = 1,
+            //    ISOValue = 1,
+            //    Make = "Nikon I guess"
+            //};
+            return MetaDataExtractor<EXIFModel>.Create(filename);
         }
 
         /// <summary>
@@ -248,7 +254,7 @@ namespace PicDB
         /// <summary>
         /// Path where the pictures are located
         /// </summary>
-        public string PicturePath { get; set; } = @"C:\projects\SWE2\SWE2-CS\deploy\Pictures\";
+        public string PicturePath { get; set; } = Path.Combine(AppContext.Instance.WorkingDirectory, "Pictures");
 
         private bool PictureExists(string filename)
         {
