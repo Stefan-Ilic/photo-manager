@@ -117,7 +117,10 @@ namespace PicDB
 
             foreach (var picName in picNamesToAdd)
             {
-                Save(new PictureModel(picName){EXIF = ExtractEXIF(picName)});
+                Save(new PictureModel(picName)
+                {
+                    EXIF = ExtractEXIF(picName)
+                });
             }
         }
 

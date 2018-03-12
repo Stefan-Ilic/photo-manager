@@ -20,8 +20,8 @@ GO
 CREATE TABLE EXIF (
 	ID INT /*IDENTITY(1,1)*/ PRIMARY KEY,
 	Make VARCHAR(255),
-	FNumber DECIMAL(100, 100),
-	ExposureTime DECIMAL,
+	FNumber DECIMAL(5,2),
+	ExposureTime DECIMAL(8,4),
 	ISOValue DECIMAL,
 	Flash BIT,
 	ExposureProgram INT

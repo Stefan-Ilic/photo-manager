@@ -26,7 +26,7 @@
             <Button DockPanel.Dock="Right">Search</Button>
         </DockPanel>
 
-        <!--Thumbnails-->
+        <!--Thumbnails--> <!--TODO put in own file-->
         <StackPanel DockPanel.Dock="Bottom">
             <ListView x:Name="ListView" ItemsSource="{Binding Path=List.List}" ScrollViewer.CanContentScroll="False">
                 <i:Interaction.Triggers>

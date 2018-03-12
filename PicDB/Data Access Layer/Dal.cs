@@ -186,7 +186,7 @@ namespace PicDB.Data_Access_Layer
         /// The connection string for the database connection
         /// </summary>
         public string ConnectionString { get; set; } =
-            "Data Source=Ilic;Initial Catalog = PicDB; Integrated Security = True";
+            "Data Source=Ilic;Initial Catalog = PicDB; Integrated Security = True"; //TODO put in config file
 
         /// <summary>
         /// The connection to the database
@@ -215,7 +215,7 @@ namespace PicDB.Data_Access_Layer
             Iptc,
             Exif
         }
-        private int GenerateId(DataObject obj)
+        private int GenerateId(DataObject obj)//TODO delete if useless
         {
             switch (obj)
             {
@@ -235,7 +235,7 @@ namespace PicDB.Data_Access_Layer
             {
                 return (int)command.ExecuteScalar();
             }
-            catch (Exception) //TODO change this later
+            catch (Exception) //TODO change this later or delete entirely
             {
                 return 0;
             }
@@ -248,7 +248,7 @@ namespace PicDB.Data_Access_Layer
             {
                 return (int)command.ExecuteScalar();
             }
-            catch (Exception) //TODO change this later
+            catch (Exception) //TODO change this later or delete entirely
             {
                 return 0;
             }

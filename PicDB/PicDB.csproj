@@ -130,6 +130,11 @@
     <Compile Include="Models\PhotographerModel.cs" />
     <Compile Include="Models\PictureModel.cs" />
     <Compile Include="Reporting\Report.cs" />
+    <Compile Include="Reporting\Report2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Report2.tt</DependentUpon>
+    </Compile>
     <Compile Include="Uebungen\UEB3.cs" />
     <Compile Include="Uebungen\UEB4.cs" />
     <Compile Include="Uebungen\UEB5.cs" />
@@ -177,6 +182,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </Content>
+    <Content Include="Reporting\Report2.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Report2.cs</LastGenOutput>
+    </Content>
     <Resource Include="Resources\FlashOn.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -218,7 +227,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
