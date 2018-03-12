@@ -26,8 +26,13 @@ namespace PicDB.Data_Access_Layer
             Connect();
 
             var list = new List<IPictureModel>();
-            var command = new SqlCommand(@"SELECT Pictures.ID as picture_id, Filename, Make, FNumber, ExposureTime, ISOValue, Flash, ExposureProgram
-                FROM Pictures INNER JOIN EXIF ON Pictures.ID = EXIF.ID", Connection);
+            var command = new SqlCommand(
+                @"SELECT Pictures.ID as picture_id, Filename, Make, FNumber, ExposureTime, ISOValue, Flash, ExposureProgram, Keywords, Caption, ByLine, CopyrightNotice, Headline
+                FROM Pictures 
+                INNER JOIN EXIF 
+                ON Pictures.ID = EXIF.ID
+                INNER JOIN IPTC
+                ON Pictures.ID = IPTC.ID", Connection);
             var reader = command.ExecuteReader();
             if (reader.HasRows)
             {
@@ -46,6 +51,14 @@ namespace PicDB.Data_Access_Layer
                             ISOValue = (decimal)reader["ISOValue"],
                             Flash = (bool)reader["Flash"],
                             ExposureProgram = (ExposurePrograms)reader["ExposureProgram"]
+                        },
+                        IPTC = new IPTCModel()
+                        {
+                            Keywords = (string)reader["Keywords"],
+                            ByLine = (string)reader["ByLine"],
+                            Caption = (string)reader["Caption"],
+                            CopyrightNotice = (string)reader["CopyrightNotice"],
+                            Headline = (string)reader["Headline"],
                         }
                     });
                 }
@@ -74,16 +87,7 @@ namespace PicDB.Data_Access_Layer
         {
             Connect();
 
-            //var command = new SqlCommand(@"INSERT INTO IPTC (ID, Keywords, ByLine, CopyrightNotice, Headline, Caption)
-            //    VALUES (@id, @keywords, @byLine, @copyrightNotice, @headline, @caption)", Connection);
-            // var iptcId = GenerateId(DataObject.Iptc);
-            //command.Parameters.AddWithValue("@id", iptcId);
-            //command.Parameters.AddWithValue("@keywords", picture.IPTC.Keywords);
-            //command.Parameters.AddWithValue("@byLine", picture.IPTC.ByLine);
-            //command.Parameters.AddWithValue("@copyrightNotice", picture.IPTC.CopyrightNotice);
-            //command.Parameters.AddWithValue("@headline", picture.IPTC.Headline);
-            //command.Parameters.AddWithValue("@caption", picture.IPTC.Caption);
-            //command.ExecuteNonQuery();
+
 
 
 
@@ -108,6 +112,16 @@ namespace PicDB.Data_Access_Layer
             command.Parameters.AddWithValue("@exposureProgram", (int)picture.EXIF.ExposureProgram);
             command.ExecuteNonQuery();
 
+            command = new SqlCommand(@"INSERT INTO IPTC (ID, Keywords, ByLine, CopyrightNotice, Headline, Caption)
+                VALUES (@id, @keywords, @byLine, @copyrightNotice, @headline, @caption)", Connection);
+            command.Parameters.AddWithValue("@id", newId);
+            command.Parameters.AddWithValue("@keywords", picture.IPTC.Keywords);
+            command.Parameters.AddWithValue("@byLine", picture.IPTC.ByLine);
+            command.Parameters.AddWithValue("@copyrightNotice", picture.IPTC.CopyrightNotice);
+            command.Parameters.AddWithValue("@headline", picture.IPTC.Headline);
+            command.Parameters.AddWithValue("@caption", picture.IPTC.Caption);
+            command.ExecuteNonQuery();
+
             Disconnect();
         }
 
@@ -119,7 +133,10 @@ namespace PicDB.Data_Access_Layer
         {
             Connect();
 
-            var command = new SqlCommand(@"DELETE FROM Pictures WHERE ID = @id"
+            var command = new SqlCommand(
+                @"DELETE FROM Pictures WHERE ID = @id;
+                DELETE FROM EXIF WHERE ID = @id;
+                DELETE FROM IPTC WHERE ID = @id"
                 , Connection);
             command.Parameters.AddWithValue("@id", ID);
             command.ExecuteNonQuery();
@@ -186,7 +203,8 @@ namespace PicDB.Data_Access_Layer
         /// <summary>
         /// The connection string for the database connection
         /// </summary>
-        public string ConnectionString => GetConnectionString();
+        public string ConnectionString { get; set; } =
+            "Data Source=Ilic;Initial Catalog = PicDB; Integrated Security = True;";
 
         /// <summary>
         /// The connection to the database
@@ -263,7 +281,7 @@ namespace PicDB.Data_Access_Layer
             var settings = ConfigurationManager.ConnectionStrings["standard"];
 
             // If found, return the connection string.
-            returnValue = settings.ConnectionString;
+            returnValue = settings?.ConnectionString;
 
             return returnValue;
         }

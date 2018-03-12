@@ -82,7 +82,7 @@ namespace PicDB
         /// <param name="ID"></param>
         public void DeletePicture(int ID)
         {
-
+            Dal.DeletePicture(ID);
         }
 
         /// <summary>
@@ -119,7 +119,8 @@ namespace PicDB
             {
                 Save(new PictureModel(picName)
                 {
-                    EXIF = ExtractEXIF(picName)
+                    EXIF = ExtractEXIF(picName),
+                    IPTC = ExtractIPTC(picName)
                 });
             }
         }
@@ -181,14 +182,16 @@ namespace PicDB
             {
                 throw new MissingPictureException();
             }
-            return new IPTCModel()
-            {
-                ByLine = "But",
-                Caption = "Can",
-                CopyrightNotice = "You",
-                Headline = "Do",
-                Keywords = "This"
-            };
+            //return new IPTCModel()
+            //{
+            //    ByLine = "But",
+            //    Caption = "Can",
+            //    CopyrightNotice = "You",
+            //    Headline = "Do",
+            //    Keywords = "This"
+            //};
+
+            return MetaDataExtractor<IPTCModel>.Create(filename);
         }
 
         /// <summary>

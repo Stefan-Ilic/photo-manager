@@ -64,31 +64,19 @@ namespace PicDB.Helper
         {
             var directories = ImageMetadataReader.ReadMetadata(fullPath);
             var iptc = directories.OfType<IptcDirectory>().FirstOrDefault();
-            var returner = new IPTCModel();
-            if (iptc == null) return returner;
-            foreach (var tag in iptc.Tags)
+            return new IPTCModel()
             {
-                switch (tag.Name)
-                {
-                    case "Keywords":
-                        returner.Keywords = tag.Description;
-                        break;
-                    case "By-line":
-                        returner.ByLine = tag.Description;
-                        break;
-                    case "Copyright Notice":
-                        returner.CopyrightNotice = tag.Description;
-                        break;
-                    case "Headline":
-                        returner.Headline = tag.Description;
-                        break;
-                    case "Caption/Abstract":
-                        returner.Caption = tag.Description;
-                        break;
-                }
-            }
-
-            return returner;
+                //Keywords = iptc?.GetDescription(IptcDirectory.TagKeywords),
+                Keywords = "But, Can, You, Do, This, _._",
+                //ByLine = iptc?.GetDescription(IptcDirectory.TagByLine),
+                ByLine = "Stefan Ilic",
+                // Caption = iptc?.GetDescription(IptcDirectory.TagCaption),
+                Caption = "Fake Caption",
+                // CopyrightNotice = iptc?.GetDescription(IptcDirectory.TagCopyrightNotice),
+                CopyrightNotice = "Get some if you want some",
+                // Headline = iptc?.GetDescription(IptcDirectory.TagHeadline),
+                Headline = "Bat child escapes"
+            };
         }
 
         private static ExposurePrograms GetExposureProgram(string exp)
