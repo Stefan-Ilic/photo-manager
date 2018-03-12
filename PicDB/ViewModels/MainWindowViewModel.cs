@@ -29,7 +29,8 @@ namespace PicDB.ViewModels
         /// </summary>
         public MainWindowViewModel()
         {
-            var bl = new BusinessLayer();
+            var type = AppContext.Instance.IsMock ? "mock" : "real";
+            var bl = new BusinessLayer(type);
             bl.Sync();
             List = new PictureListViewModel();
             if (List.Count != 0)
