@@ -60,11 +60,8 @@ namespace PicDB.ViewModels
 
         private static IEnumerable<IPictureViewModel> GetPictureViewModels()
         {
-            //if (!Directory.Exists(@"Pictures\")) { return list; }
-            //var fullFiles = Directory.GetFiles(@"Pictures\", "*.jpg", SearchOption.TopDirectoryOnly);
-            //var files = fullFiles.Select(Path.GetFileName).ToList();
-            //list.AddRange(files.Select(file => new PictureViewModel(new PictureModel(file))));
-            var bl = new BusinessLayer();
+            var type = AppContext.Instance.IsMock ? "mock" : "real";
+            var bl = new BusinessLayer(type);
             var pictureModels = bl.GetPictures();
             return pictureModels.Select(pictureModel => new PictureViewModel(pictureModel)).Cast<IPictureViewModel>().ToList();
         }

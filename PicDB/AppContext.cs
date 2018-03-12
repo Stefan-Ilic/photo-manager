@@ -29,6 +29,9 @@ namespace PicDB
             set => _workingDirectory = value;
         }
         private string _workingDirectory;
+
+        public bool IsMock => WorkingDirectory == @"c:\workspace\BIF-SS18-SWE2-if16b072\deploy";
+
         #endregion
     }
 }
