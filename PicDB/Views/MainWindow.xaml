@@ -18,6 +18,7 @@
             <Button>Options</Button>
             <Button>Help</Button>
             <Button Command="{Binding ReportSingleCommand}">Create Report</Button>
+            <Button Command="{Binding OpenAboutCommand}">About</Button>
         </ToolBar>
 
         <!--Searchbar-->

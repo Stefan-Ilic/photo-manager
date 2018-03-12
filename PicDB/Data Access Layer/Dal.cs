@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
@@ -160,7 +161,7 @@ namespace PicDB.Data_Access_Layer
         /// <param name="ID"></param>
         public void DeletePhotographer(int ID)
         {
-            
+
         }
 
         /// <summary>
@@ -185,8 +186,7 @@ namespace PicDB.Data_Access_Layer
         /// <summary>
         /// The connection string for the database connection
         /// </summary>
-        public string ConnectionString { get; set; } =
-            "Data Source=Ilic;Initial Catalog = PicDB; Integrated Security = True"; //TODO put in config file
+        public string ConnectionString => GetConnectionString();
 
         /// <summary>
         /// The connection to the database
@@ -252,6 +252,20 @@ namespace PicDB.Data_Access_Layer
             {
                 return 0;
             }
+        }
+
+        private static string GetConnectionString()
+        {
+            // Assume failure.
+            string returnValue = null;
+
+            // Look for the name in the connectionStrings section.
+            var settings = ConfigurationManager.ConnectionStrings["standard"];
+
+            // If found, return the connection string.
+            returnValue = settings.ConnectionString;
+
+            return returnValue;
         }
 
         #endregion

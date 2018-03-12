@@ -1,0 +1,14 @@
+﻿<Window x:Class="PicDB.Views.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PicDB.Views"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+        Title="About" Height="300" Width="300">
+    <StackPanel>
+        <TextBlock>Made by Stefan Ilic</TextBlock>
+        <TextBlock>Images made by Freepik on flaticon.com</TextBlock>
+    </StackPanel>
+</Window>

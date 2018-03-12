@@ -13,6 +13,7 @@ using BIF.SWE2.Interfaces.ViewModels;
 using MetadataExtractor.Formats.Exif.Makernotes;
 using PicDB.Models;
 using PicDB.Reporting;
+using PicDB.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 
@@ -35,10 +36,6 @@ namespace PicDB.ViewModels
             {
                 CurrentPicture = List.List.First();
             }
-
-            //Commands
-            SelectPictureCommand = new DelegateCommand<object>(SelectPicture);
-            ReportSingleCommand = new DelegateCommand(ReportSingle);
         }
 
 
@@ -67,7 +64,7 @@ namespace PicDB.ViewModels
         /// <summary>
         /// This command selects a picture if you click on its thumbnail on the bottom
         /// </summary>
-        public ICommand SelectPictureCommand { get; set; }
+        public ICommand SelectPictureCommand => new DelegateCommand<object>(SelectPicture);
 
         private void SelectPicture(object obj)
         {
@@ -79,12 +76,23 @@ namespace PicDB.ViewModels
         /// <summary>
         /// Creates a Report for the CurrentPicture
         /// </summary>
-        public ICommand ReportSingleCommand { get; set; }
+        public ICommand ReportSingleCommand => new DelegateCommand(ReportSingle);
 
         private void ReportSingle()
         {
             Report.Create(CurrentPicture);
             MessageBox.Show("Report created!");
+        }
+
+        /// <summary>
+        /// Opens the about window
+        /// </summary>
+        public ICommand OpenAboutCommand => new DelegateCommand(OpenAbout);
+
+        private static void OpenAbout()
+        {
+            var about = new About();
+            about.ShowDialog();
         }
 
         #endregion
